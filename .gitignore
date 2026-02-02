@@ -4,6 +4,8 @@ GIT_SETUP.md
 QUICK_REFERENCE.md
 SETUP_COMPLETE.md
 START_HERE.txt
+deploy.sh
+.env.example
 
 # WordPress Core
 /wp/
