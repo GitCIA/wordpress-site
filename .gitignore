@@ -7,6 +7,12 @@ START_HERE.txt
 deploy.sh
 .env.example
 
+# DDEV
+/.ddev/
+
+# Database dumps
+/db_dump/
+
 # WordPress Core
 /wp/
 
