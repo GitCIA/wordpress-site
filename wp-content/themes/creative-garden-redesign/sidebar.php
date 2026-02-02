@@ -1,0 +1,15 @@
+<?php
+/**
+ * Sidebar Template
+ *
+ * @package LeafLife_Pro
+ */
+
+if (!is_active_sidebar('sidebar-1')) {
+    return;
+}
+?>
+
+<aside id="secondary" class="widget-area cs_sidebar">
+    <?php dynamic_sidebar('sidebar-1'); ?>
+</aside>

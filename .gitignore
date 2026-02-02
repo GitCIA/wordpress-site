@@ -1,0 +1,66 @@
+# WordPress Core
+/wp/
+
+# WordPress Configuration
+wp-config.php
+wp-config-local.php
+my-config.php
+
+# WordPress Uploads
+/wp-content/uploads/
+/wp-content/cache/
+/wp-content/backup-*
+
+# Generated Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.env.local
+.env.*.local
+
+# Node/Build
+node_modules/
+npm-debug.log
+yarn-error.log
+/dist/
+/build/
+
+# Composer
+/vendor/
+composer.lock
+
+# Database
+*.sql
+*.sql.gz
+
+# Logs
+*.log
+
+# Temporary files
+/tmp/
+/temp/
+
+# wp-cli
+wp-cli.local.yml
+
+# WordPress multisite
+/wp-content/blogs.dir/
+
+# Autoptimize
+/wp-content/cache/autoptimize/
+/wp-content/autoptimize_404_handler.php
+
+# Backup files
+*.bak
+*.backup
+~*
