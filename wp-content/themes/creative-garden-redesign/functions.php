@@ -1072,6 +1072,16 @@ function cgr_customize_register($wp_customize) {
         'type'    => 'textarea',
     ));
 
+    $wp_customize->add_setting('features_button_display', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('features_button_display', array(
+        'label'   => __('Display Features Button', 'creative-garden-redesign'),
+        'section' => 'cgr_features',
+        'type'    => 'checkbox',
+    ));
+
     // Feature items (4)
     $feature_defaults = array(
         1 => array('icon' => 'fa-regular fa-heart', 'title' => 'Passion in every work', 'desc' => 'We are deeply passionate about creating beautiful, sustainable green landscapes for our clients.'),

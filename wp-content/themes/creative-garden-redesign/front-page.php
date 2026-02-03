@@ -39,6 +39,7 @@ $values_card_display = get_theme_mod('values_card_display', true);
 
 // Get feature settings
 $features_title = get_theme_mod('features_title', 'WE ARE <span>DIFFERENT</span> IN EVERY WAYS');
+$features_button_display = get_theme_mod('features_button_display', true);
 
 // Get process settings
 $process_title = get_theme_mod('process_title', 'SIMPLE STEPS FOR OUR <span>LANDSCAPE</span> WORK');
@@ -140,9 +141,11 @@ $cta_background = cgr_get_cta_background();
     <div class="container">
         <div class="cs_section_heading cs_style_1">
             <h2 class="cs_section_title cs_fs_80 mb-0 wow fadeInDown"><?php echo wp_kses_post($features_title); ?></h2>
+            <?php if ($features_button_display) : ?>
             <div class="cs_section_right">
                 <a href="<?php echo esc_url(get_post_type_archive_link('service')); ?>" class="cs_btn cs_style_1 cs_bold cs_heading_bg cs_white_color w-100 wow fadeInRight"><?php esc_html_e('Services', 'creative-garden-redesign'); ?></a>
             </div>
+            <?php endif; ?>
         </div>
         <div class="cs_height_64 cs_height_lg_50"></div>
         <div class="row align-items-end cs_gap_y_50">
