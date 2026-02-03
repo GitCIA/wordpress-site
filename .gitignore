@@ -19,6 +19,7 @@ deploy.sh
 # WordPress Configuration
 wp-config.php
 wp-config-local.php
+wp-cli.yml
 
 # WordPress Uploads
 /wp-content/uploads/
