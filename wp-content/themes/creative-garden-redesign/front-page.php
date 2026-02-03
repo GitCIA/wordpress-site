@@ -136,7 +136,7 @@ $cta_background = cgr_get_cta_background();
 <?php endif; ?>
 
 <!-- Start Feature Section -->
-<section>
+<section <?php if (!$values_card_display) { echo 'class="cs_full_width_heading"'; } ?>>
     <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
         <div class="cs_section_heading cs_style_1">

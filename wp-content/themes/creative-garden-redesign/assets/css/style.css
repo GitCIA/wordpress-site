@@ -2352,6 +2352,16 @@ hr {
   }
 }
 
+.cs_full_width_heading .cs_section_heading.cs_style_1 {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.cs_full_width_heading .cs_section_heading.cs_style_1 .cs_section_title {
+  max-width: 100%;
+}
+
 .cs_section_heading.cs_style_2 {
   display: -webkit-box;
   display: -ms-flexbox;
