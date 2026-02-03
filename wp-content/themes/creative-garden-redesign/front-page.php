@@ -10,11 +10,12 @@ get_header();
 // Get hero settings
 $hero_title = get_theme_mod('hero_title', 'CREATE YOUR <b>DREAM GARDEN</b>');
 $hero_subtitle = get_theme_mod('hero_subtitle', 'Crafting dream gardens with passion, creativity, and sustainability for over a decade with our experienced landscape artists and gardener teams.');
-$hero_btn_1_text = get_theme_mod('hero_btn_1_text', 'Get Started');
+$hero_btn_1_text = get_theme_mod('hero_btn_1_text', 'Services');
 $hero_btn_1_url = get_theme_mod('hero_btn_1_url', '/services/');
 $hero_btn_2_text = get_theme_mod('hero_btn_2_text', 'Explore Projects');
 $hero_btn_2_url = get_theme_mod('hero_btn_2_url', '/projects/');
 $hero_clients_count = get_theme_mod('hero_clients_count', '500+');
+$hero_box_display = get_theme_mod('hero_box_display', true);
 $hero_feature_title = get_theme_mod('hero_feature_title', 'Hachioji Garden');
 $hero_feature_desc = get_theme_mod('hero_feature_desc', 'We design Hachioji Garden as a part of our new Landscape Design Commission in the country.');
 $hero_feature_url = get_theme_mod('hero_feature_url', get_post_type_archive_link('project'));
@@ -69,6 +70,7 @@ $cta_background = cgr_get_cta_background();
                     </div>
                 </div>
             </div>
+            <?php if ($hero_box_display) : ?>
             <div class="cs_hero_box wow fadeInUp">
                 <div class="cs_hero_box_icon cs_mb_29">
                     <svg width="22" height="30" viewBox="0 0 22 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,6 +84,7 @@ $cta_background = cgr_get_cta_background();
                     <?php echo cgr_arrow_icon(); ?>
                 </a>
             </div>
+            <?php endif; ?>
         </div>
     </div>
     <div class="cs_hero_bg">
@@ -133,7 +136,7 @@ $cta_background = cgr_get_cta_background();
         <div class="cs_section_heading cs_style_1">
             <h2 class="cs_section_title cs_fs_80 mb-0 wow fadeInDown"><?php echo wp_kses_post($features_title); ?></h2>
             <div class="cs_section_right">
-                <a href="<?php echo esc_url(get_post_type_archive_link('service')); ?>" class="cs_btn cs_style_1 cs_bold cs_heading_bg cs_white_color w-100 wow fadeInRight"><?php esc_html_e('Get Started', 'creative-garden-redesign'); ?></a>
+                <a href="<?php echo esc_url(get_post_type_archive_link('service')); ?>" class="cs_btn cs_style_1 cs_bold cs_heading_bg cs_white_color w-100 wow fadeInRight"><?php esc_html_e('Services', 'creative-garden-redesign'); ?></a>
             </div>
         </div>
         <div class="cs_height_64 cs_height_lg_50"></div>

@@ -891,7 +891,7 @@ function cgr_customize_register($wp_customize) {
     ));
 
     $wp_customize->add_setting('hero_btn_1_text', array(
-        'default'           => 'Get Started',
+        'default'           => 'Services',
         'sanitize_callback' => 'sanitize_text_field',
     ));
     $wp_customize->add_control('hero_btn_1_text', array(
@@ -938,6 +938,16 @@ function cgr_customize_register($wp_customize) {
         'label'   => __('Satisfied Clients Count', 'creative-garden-redesign'),
         'section' => 'cgr_hero',
         'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('hero_box_display', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('hero_box_display', array(
+        'label'   => __('Display Hero Box', 'creative-garden-redesign'),
+        'section' => 'cgr_hero',
+        'type'    => 'checkbox',
     ));
 
     $wp_customize->add_setting('hero_feature_title', array(
