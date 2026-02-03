@@ -33,8 +33,20 @@
                 <div class="cs_main_header_center">
                     <div class="cs_nav cs_heading_color">
                         <nav class="cs_nav_list_wrap text-uppercase" role="navigation" aria-label="<?php esc_attr_e('Primary Navigation', 'creative-garden-redesign'); ?>">
-                            <?php
-                            wp_nav_menu(array(
+                            <?php                            // Filter menu items based on customizer settings
+                            $menu_items = wp_get_nav_menu_items('primary');
+                            $show_items = array();
+                            
+                            if (!empty($menu_items)) {
+                                foreach ($menu_items as $item) {
+                                    $setting_key = 'nav_item_show_' . $item->ID;
+                                    $show_item = get_theme_mod($setting_key, true);
+                                    if ($show_item) {
+                                        $show_items[] = $item->ID;
+                                    }
+                                }
+                            }
+                                                        wp_nav_menu(array(
                                 'theme_location' => 'primary',
                                 'menu_class'     => 'cs_nav_list',
                                 'container'      => false,

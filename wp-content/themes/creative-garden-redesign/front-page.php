@@ -65,6 +65,7 @@ $cta_background = cgr_get_cta_background();
             </div>
             <div class="cs_hero_funfact_wrap wow fadeInRight">
                 <div class="cs_hero_funfact">
+                    <a href="#cs_testimonial" class="cs_hero_funfact_link">
                     <h3 class="cs_fs_24 cs_bold cs_white_color mb-0"><?php echo esc_html($hero_clients_count); ?></h3>
                     <p class="cs_fs_20 cs_white_color cs_opacity_7_5 cs_mb_16"><?php esc_html_e('Satisfied Clients', 'creative-garden-redesign'); ?></p>
                     <div class="cs_circle_group">
@@ -72,6 +73,7 @@ $cta_background = cgr_get_cta_background();
                         <span></span>
                         <span></span>
                     </div>
+                    </a>
                 </div>
             </div>
             <?php if ($hero_box_display) : ?>
@@ -110,7 +112,6 @@ $cta_background = cgr_get_cta_background();
 </section>
 <!-- End Hero Section -->
 
-<?php if ($values_card_display) : ?>
 <!-- Start Values Section -->
 <div class="cs_height_100 cs_height_lg_70"></div>
 <div class="container">
@@ -118,6 +119,7 @@ $cta_background = cgr_get_cta_background();
         <div class="cs_values_card_left">
             <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0"><?php esc_html_e('WHO WE ARE', 'creative-garden-redesign'); ?></h3>
         </div>
+        <?php if ($values_card_display) : ?>
         <div class="cs_values_card_left">
             <ul class="cs_values cs_mp_0 cs_heading_color cs_fs_20">
                 <li>
@@ -130,14 +132,14 @@ $cta_background = cgr_get_cta_background();
                 </li>
             </ul>
         </div>
+        <?php endif; ?>
     </div>
 </div>
 <!-- End Values Section -->
-<?php endif; ?>
 
 <!-- Start Feature Section -->
 <section <?php if (!$values_card_display) { echo 'class="cs_full_width_heading"'; } ?>>
-    <div class="cs_height_100 cs_height_lg_70"></div>
+    <div class="cs_height_50 cs_height_lg_70"></div>
     <div class="container">
         <div class="cs_section_heading cs_style_1">
             <h2 class="cs_section_title cs_fs_80 mb-0 wow fadeInDown"><?php echo wp_kses_post($features_title); ?></h2>
@@ -222,9 +224,6 @@ $cta_background = cgr_get_cta_background();
                 </div>
             </div>
             <?php endfor; ?>
-            <div class="cs_section_logo">
-                <img src="<?php echo esc_url(cgr_get_logo()); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
-            </div>
         </div>
     </div>
     <div class="cs_height_100 cs_height_lg_70"></div>
@@ -319,7 +318,7 @@ $cta_background = cgr_get_cta_background();
 <!-- End Services Section -->
 
 <!-- Start Testimonial Section -->
-<section class="cs_gray_bg">
+<section id="cs_testimonial" class="cs_gray_bg">
     <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
         <div class="text-center">

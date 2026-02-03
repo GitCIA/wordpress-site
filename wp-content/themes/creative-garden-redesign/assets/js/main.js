@@ -240,11 +240,47 @@
           arrows: false,
           infinite: false,
           speed: 500,
-          adaptiveHeight: true,
+          adaptiveHeight: false,
         };
+
+        // Function to set proper slider height after images load
+        function setSliderHeight() {
+          var $activeSlide = $slider.find('.slick-slide.slick-active');
+          if ($activeSlide.length) {
+            var slideHeight = $activeSlide.height();
+            if (slideHeight > 0) {
+              $slider.find('.slick-list').height(slideHeight);
+            }
+          }
+        }
 
         // Initialize slick
         $slider.slick(slickOptions);
+
+        // Wait for all images in the slider to load before setting initial height
+        var allImages = $slider.find('img');
+        var imagesLoaded = 0;
+        
+        function checkImagesLoaded() {
+          imagesLoaded++;
+          if (imagesLoaded === allImages.length || allImages.length === 0) {
+            setTimeout(setSliderHeight, 100);
+          }
+        }
+        
+        if (allImages.length > 0) {
+          allImages.each(function() {
+            if (this.complete) {
+              checkImagesLoaded();
+            } else {
+              $(this).on('load error', function() {
+                checkImagesLoaded();
+              });
+            }
+          });
+        } else {
+          setSliderHeight();
+        }
 
         // Update pagination text on slide change
         $slider.on('init reInit afterChange', function (event, slick, currentSlide) {
@@ -253,6 +289,9 @@
           if ($sliderNumber.length > 0) {
             $sliderNumber.html('<span>' + currentPage + '</span><span class="cs_slider_number_seperator"></span><span>' + totalPages + '</span>');
           }
+          
+          // Recalculate height after slide change
+          setTimeout(setSliderHeight, 200);
         });
 
         // Connect custom arrows
@@ -266,6 +305,11 @@
 
         // Trigger initial update
         $slider.slick('slickGoTo', 0);
+        
+        // Handle window resize
+        $(window).on('resize', function() {
+          setSliderHeight();
+        });
       });
     }
   }

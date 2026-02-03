@@ -83,7 +83,7 @@ get_header();
         ?>
         
         <!-- Gallery Slider with Pagination -->
-        <div class="cs_gallery_slider" data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "dots": false, "arrows": true, "infinite": false, "speed": 500, "adaptiveHeight": true}'>
+        <div class="cs_gallery_slider" data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "dots": false, "arrows": true, "infinite": false, "speed": 500}'>
             <?php
             // If fallback images
             if ($use_fallback) :

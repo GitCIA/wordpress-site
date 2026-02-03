@@ -1003,10 +1003,74 @@ function cgr_customize_register($wp_customize) {
         'sanitize_callback' => 'rest_sanitize_boolean',
     ));
     $wp_customize->add_control('values_card_display', array(
-        'label'   => __('Display Values Card', 'creative-garden-redesign'),
+        'label'   => __('Display Values Card Items', 'creative-garden-redesign'),
         'section' => 'cgr_values',
         'type'    => 'checkbox',
     ));
+
+    // Navigation Section
+    $wp_customize->add_section('cgr_navigation', array(
+        'title'    => __('Navigation Menu', 'creative-garden-redesign'),
+        'panel'    => 'cgr_options',
+        'priority' => 5,
+        'description' => __('Manage primary navigation menu. To add, reorder, or remove menu items, go to Appearance > Menus.', 'creative-garden-redesign'),
+    ));
+
+    // Menu Items Display Control
+    $menu_items = wp_get_nav_menu_items('Primary Menu');
+    if (!empty($menu_items)) {
+        $menu_items_list = array();
+        $menu_items_list['all'] = __('Show All Items', 'creative-garden-redesign');
+        
+        foreach ($menu_items as $item) {
+            if ($item->menu_item_parent == 0) { // Only top-level items
+                $menu_items_list[$item->ID] = $item->title;
+            }
+        }
+        
+        $wp_customize->add_setting('nav_items_limit', array(
+            'default'           => 'all',
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        $wp_customize->add_control('nav_items_limit', array(
+            'label'   => __('Navigation Items Display', 'creative-garden-redesign'),
+            'section' => 'cgr_navigation',
+            'type'    => 'select',
+            'choices' => $menu_items_list,
+            'description' => __('Select how many menu items to display', 'creative-garden-redesign'),
+        ));
+    }
+
+    // Add setting for menu item ordering (stored as JSON)
+    $wp_customize->add_setting('nav_items_order', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('nav_items_order_notice', array(
+        'label'       => __('Menu Item Order', 'creative-garden-redesign'),
+        'section'     => 'cgr_navigation',
+        'type'        => 'checkbox',
+        'description' => __('To reorder menu items, use the Menus page. Visit: Appearance > Menus, then drag items to reorder.', 'creative-garden-redesign'),
+    ));
+
+    // Add controls for hiding individual menu items
+    $menu_items = wp_get_nav_menu_items('Primary Menu');
+    if (!empty($menu_items)) {
+        foreach ($menu_items as $item) {
+            if ($item->menu_item_parent == 0) { // Only top-level items
+                $setting_key = 'nav_item_show_' . $item->ID;
+                $wp_customize->add_setting($setting_key, array(
+                    'default'           => true,
+                    'sanitize_callback' => 'rest_sanitize_boolean',
+                ));
+                $wp_customize->add_control($setting_key, array(
+                    'label'   => sprintf(__('Show "%s"', 'creative-garden-redesign'), $item->title),
+                    'section' => 'cgr_navigation',
+                    'type'    => 'checkbox',
+                ));
+            }
+        }
+    }
 
     // About Section
     $wp_customize->add_section('cgr_about', array(
@@ -1045,6 +1109,36 @@ function cgr_customize_register($wp_customize) {
         'type'    => 'textarea',
     ));
 
+    $wp_customize->add_setting('about_section_title', array(
+        'default'           => 'CRAFTING <br><span>DREAM GARDENS</span> <br>INTO REALITY',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+    $wp_customize->add_control('about_section_title', array(
+        'label'   => __('About Section Title', 'creative-garden-redesign'),
+        'section' => 'cgr_about',
+        'type'    => 'textarea',
+    ));
+
+    $wp_customize->add_setting('about_team_title', array(
+        'default'           => 'OUR TEAM <br><span>OF</span> DEDICATION',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+    $wp_customize->add_control('about_team_title', array(
+        'label'   => __('Team Section Title', 'creative-garden-redesign'),
+        'section' => 'cgr_about',
+        'type'    => 'textarea',
+    ));
+
+    $wp_customize->add_setting('about_work_title', array(
+        'default'           => 'OUR <br><span>WORK</span>',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+    $wp_customize->add_control('about_work_title', array(
+        'label'   => __('Work Section Title', 'creative-garden-redesign'),
+        'section' => 'cgr_about',
+        'type'    => 'textarea',
+    ));
+
     $wp_customize->add_setting('about_video_url', array(
         'default'           => 'https://youtu.be/LsU5Y5svvq8',
         'sanitize_callback' => 'esc_url_raw',
@@ -1054,6 +1148,48 @@ function cgr_customize_register($wp_customize) {
         'section' => 'cgr_about',
         'type'    => 'url',
     ));
+
+    // About Brand Section
+    $wp_customize->add_section('cgr_about_brand', array(
+        'title'    => __('About Page Brands', 'creative-garden-redesign'),
+        'panel'    => 'cgr_options',
+        'priority' => 18,
+    ));
+
+    $wp_customize->add_setting('about_brand_display', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('about_brand_display', array(
+        'label'   => __('Display Brand Section', 'creative-garden-redesign'),
+        'section' => 'cgr_about_brand',
+        'type'    => 'checkbox',
+    ));
+
+    $wp_customize->add_setting('about_brand_count', array(
+        'default'           => 6,
+        'sanitize_callback' => 'absint',
+    ));
+    $wp_customize->add_control('about_brand_count', array(
+        'label'       => __('Number of Brands', 'creative-garden-redesign'),
+        'section'     => 'cgr_about_brand',
+        'type'        => 'number',
+        'input_attrs' => array(
+            'min' => 1,
+            'max' => 6,
+        ),
+    ));
+
+    for ($i = 1; $i <= 6; $i++) {
+        $wp_customize->add_setting('about_brand_logo_' . $i, array(
+            'default'           => CGR_URI . '/assets/img/brand_logo_' . $i . '.svg',
+            'sanitize_callback' => 'esc_url_raw',
+        ));
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'about_brand_logo_' . $i, array(
+            'label'   => sprintf(__('Brand Logo %d', 'creative-garden-redesign'), $i),
+            'section' => 'cgr_about_brand',
+        )));
+    }
 
     // Features Section
     $wp_customize->add_section('cgr_features', array(
@@ -1251,6 +1387,26 @@ function cgr_customize_register($wp_customize) {
         'type'    => 'text',
     ));
 
+    $wp_customize->add_setting('contact_address_2', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('contact_address_2', array(
+        'label'   => __('Contact Address 2', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('contact_map_display', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('contact_map_display', array(
+        'label'   => __('Display Map', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'checkbox',
+    ));
+
     $wp_customize->add_setting('google_map_embed', array(
         'default'           => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96652.27317354927!2d-74.33557928194516!3d40.79756494697628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3a82f1352d0dd%3A0x81d4f72c4435aab5!2sTroy+Meadows+Wetlands!5e0!3m2!1sen!2sbd!4v1563075599994!5m2!1sen!2sbd',
         'sanitize_callback' => 'esc_url_raw',
@@ -1346,6 +1502,39 @@ add_action('wp_head', 'cgr_seo_meta', 1);
 
 /**
  * Schema.org Structured Data for Services and Projects
+ */
+/**
+ * Get Filtered Navigation Menu Items
+ * Allows hiding/showing specific items
+ */
+function cgr_get_nav_menu_items($menu_location = 'primary') {
+    $items = wp_get_nav_menu_items($menu_location);
+    
+    if (empty($items)) {
+        return array();
+    }
+    
+    // Get hidden items setting
+    $hidden_items = get_theme_mod('nav_items_hidden', array());
+    if (is_string($hidden_items)) {
+        $hidden_items = json_decode($hidden_items, true);
+    }
+    
+    if (!is_array($hidden_items)) {
+        $hidden_items = array();
+    }
+    
+    // Filter out hidden items
+    $filtered_items = array_filter($items, function($item) use ($hidden_items) {
+        return !in_array($item->ID, $hidden_items);
+    });
+    
+    return array_values($filtered_items);
+}
+
+/**
+ * Custom Walker for Primary Navigation
+ * Modified to support customizer controls
  */
 function cgr_schema_data() {
     if (is_singular('service')) {

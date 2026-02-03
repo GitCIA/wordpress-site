@@ -11,9 +11,14 @@ get_header();
 // About Page Customizer Options
 $about_subtitle_1 = get_theme_mod('about_subtitle_1', 'At CreativeGardenDesign, we are passionate about transforming outdoor spaces into breathtaking gardens that tell a unique story. Our journey began over a decade ago, driven by a shared love for nature');
 $about_subtitle_2 = get_theme_mod('about_subtitle_2', 'and design. Since then, we have dedicated ourselves to creating gardens that enhance your property. Our solid commitment to sustainability, innovation, and collaboration has been the foundation of our success.');
+$about_section_title = get_theme_mod('about_section_title', 'CRAFTING <br><span>DREAM GARDENS</span> <br>INTO REALITY');
+$about_team_title = get_theme_mod('about_team_title', 'OUR TEAM <br><span>OF</span> DEDICATION');
+$about_work_title = get_theme_mod('about_work_title', 'OUR <br><span>WORK</span>');
 $about_video_url = get_theme_mod('about_video_url', 'https://youtu.be/LsU5Y5svvq8');
 $about_video_bg = get_theme_mod('about_video_bg', CGR_URI . '/assets/img/video_block_bg.jpg');
 $about_cta_bg = get_theme_mod('about_cta_bg', CGR_URI . '/assets/img/cta_bg_3.jpg');
+$about_brand_display = get_theme_mod('about_brand_display', true);
+$about_brand_count = absint(get_theme_mod('about_brand_count', 6));
 ?>
 
 <!-- Start Page Heading Section -->
@@ -32,7 +37,7 @@ $about_cta_bg = get_theme_mod('about_cta_bg', CGR_URI . '/assets/img/cta_bg_3.jp
         <div class="row cs_gap_x_40 cs_gap_y_24">
             <div class="col-lg-4">
                 <div class="cs_section_heading cs_style_4">
-                    <h2 class="cs_section_title cs_fs_32 cs_bold mb-0 wow fadeInDown"><?php esc_html_e('CRAFTING', 'creative-garden-redesign'); ?> <br><span><?php esc_html_e('DREAM GARDENS', 'creative-garden-redesign'); ?></span> <br><?php esc_html_e('INTO REALITY', 'creative-garden-redesign'); ?></h2>
+                    <h2 class="cs_section_title cs_fs_32 cs_bold mb-0 wow fadeInDown"><?php echo wp_kses_post($about_section_title); ?></h2>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -64,86 +69,14 @@ $about_cta_bg = get_theme_mod('about_cta_bg', CGR_URI . '/assets/img/cta_bg_3.jp
 </section>
 <!-- End About Section -->
 
-<!-- Start Features Section -->
-<div class="cs_heading_bg cs_white_color">
-    <!-- Start Values Section -->
-    <div class="cs_height_100 cs_height_lg_70"></div>
-    <div class="container">
-        <div class="cs_values_card cs_style_1">
-            <div class="cs_values_card_left">
-                <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0 wow fadeInDown"><?php esc_html_e('WHO WE ARE', 'creative-garden-redesign'); ?></h3>
-            </div>
-            <div class="cs_values_card_left">
-                <ul class="cs_values cs_mp_0 cs_heading_color cs_fs_20">
-                    <li>
-                        <span><?php esc_html_e('Landscape Design', 'creative-garden-redesign'); ?></span>
-                        <span class="cs_bold">01</span>
-                    </li>
-                    <li>
-                        <span><?php esc_html_e('Indoor Garden', 'creative-garden-redesign'); ?></span>
-                        <span class="cs_bold">02</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- End Values Section -->
-
-    <!-- Start Feature Section -->
-    <section>
-        <div class="cs_height_100 cs_height_lg_70"></div>
-        <div class="container">
-            <div class="cs_section_heading cs_style_1">
-                <h2 class="cs_section_title cs_fs_80 mb-0 wow fadeInUp"><?php esc_html_e('WE ARE', 'creative-garden-redesign'); ?> <span><?php esc_html_e('DIFFERENT', 'creative-garden-redesign'); ?></span> <?php esc_html_e('IN EVERY WAYS', 'creative-garden-redesign'); ?></h2>
-                <div class="cs_section_right">
-                    <a href="<?php echo esc_url(get_post_type_archive_link('project')); ?>" class="cs_btn cs_style_1 cs_bold cs_heading_bg cs_white_color w-100 wow fadeInRight"><?php esc_html_e('Get Started', 'creative-garden-redesign'); ?></a>
-                </div>
-            </div>
-            <div class="cs_height_64 cs_height_lg_50"></div>
-            <div class="row align-items-end cs_gap_y_50">
-                <div class="col-lg-4">
-                    <div class="cs_img_box cs_style_1 wow fadeInLeft">
-                        <img src="<?php echo esc_url(CGR_URI . '/assets/img/feature_thumb.jpg'); ?>" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="row cs_gap_y_64">
-                        <?php for ($i = 1; $i <= 4; $i++) :
-                            $icon = get_theme_mod("feature_{$i}_icon", ($i == 1 ? 'fa-regular fa-heart' : ($i == 2 ? 'fa-solid fa-link' : ($i == 3 ? 'fa-brands fa-buffer' : 'fa-brands fa-ubuntu'))));
-                            $title = get_theme_mod("feature_{$i}_title", ($i == 1 ? 'Passion in every work' : ($i == 2 ? 'Collaboration on top' : ($i == 3 ? 'Sustainability in check' : 'Creativity unleashed'))));
-                            $text = get_theme_mod("feature_{$i}_text", '');
-                        ?>
-                        <div class="col-sm-6">
-                            <div class="cs_iconbox cs_style_1">
-                                <div class="cs_iconbox_icon cs_center cs_mb_24">
-                                    <i class="<?php echo esc_attr($icon); ?>"></i>
-                                </div>
-                                <h3 class="cs_fs_24 cs_mb_12"><?php echo esc_html($title); ?></h3>
-                                <?php if ($text) : ?>
-                                <p class="mb-0 cs_fs_20"><?php echo esc_html($text); ?></p>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <?php endfor; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="cs_height_100 cs_height_lg_70"></div>
-    </section>
-    <!-- End Feature Section -->
-</div>
-<!-- End Features Section -->
-
 <!-- Start Team Member Section -->
 <section>
-    <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
         <div class="cs_slider cs_style_1 cs_slider_gap_24">
             <div class="cs_section_heading cs_style_2 cs_color_1">
-                <h2 class="cs_section_title cs_fs_80 mb-0 wow fadeInDown"><?php esc_html_e('OUR TEAM', 'creative-garden-redesign'); ?> <br><span><?php esc_html_e('OF', 'creative-garden-redesign'); ?></span> <?php esc_html_e('DEDICATION', 'creative-garden-redesign'); ?></h2>
+                <h2 class="cs_section_title cs_fs_80 mb-0 wow fadeInDown"><?php echo wp_kses_post($about_team_title); ?></h2>
                 <div class="cs_section_right">
-                    <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0"><?php esc_html_e('WORKS', 'creative-garden-redesign'); ?></h3>
+                    <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0"><?php esc_html_e('TEAM', 'creative-garden-redesign'); ?></h3>
                     <div class="cs_slider_arrows cs_style_4 cs_hide_lg">
                         <div class="cs_left_arrow cs_heading_color">
                             <?php echo cgr_slider_arrow_left(); ?>
@@ -216,10 +149,13 @@ $about_cta_bg = get_theme_mod('about_cta_bg', CGR_URI . '/assets/img/cta_bg_3.jp
             <div class="cs_pagination cs_style_2 cs_show_lg"></div>
         </div>
     </div>
+    <?php if ($about_brand_display) : ?>
     <div class="cs_height_100 cs_height_lg_70"></div>
+    <?php endif; ?>
 </section>
 <!-- End Team Member Section -->
 
+<?php if ($about_brand_display) : ?>
 <!-- Start Brand Section -->
 <div class="cs_gray_bg">
     <div class="cs_height_64 cs_height_lg_50"></div>
@@ -227,12 +163,15 @@ $about_cta_bg = get_theme_mod('about_cta_bg', CGR_URI . '/assets/img/cta_bg_3.jp
         <div class="cs_slider cs_style_1 cs_slider_gap_24">
             <div class="cs_slider_container" data-autoplay="0" data-loop="1" data-speed="800" data-center="0" data-variable-width="0" data-slides-per-view="responsive" data-xs-slides="2" data-sm-slides="3" data-md-slides="5" data-lg-slides="6" data-add-slides="6">
                 <div class="cs_slider_wrapper">
-                    <?php for ($i = 1; $i <= 6; $i++) : ?>
-                    <div class="cs_slide">
-                        <div class="cs_brand cs_style_1">
-                            <img src="<?php echo esc_url(CGR_URI . '/assets/img/brand_logo_' . $i . '.svg'); ?>" alt="">
+                    <?php for ($i = 1; $i <= $about_brand_count; $i++) : ?>
+                        <?php $brand_logo = get_theme_mod('about_brand_logo_' . $i, CGR_URI . '/assets/img/brand_logo_' . $i . '.svg'); ?>
+                        <?php if (!empty($brand_logo)) : ?>
+                        <div class="cs_slide">
+                            <div class="cs_brand cs_style_1">
+                                <img src="<?php echo esc_url($brand_logo); ?>" alt="">
+                            </div>
                         </div>
-                    </div>
+                        <?php endif; ?>
                     <?php endfor; ?>
                 </div>
             </div>
@@ -241,56 +180,56 @@ $about_cta_bg = get_theme_mod('about_cta_bg', CGR_URI . '/assets/img/cta_bg_3.jp
     <div class="cs_height_64 cs_height_lg_50"></div>
 </div>
 <!-- End Brand Section -->
+<?php endif; ?>
 
 <!-- Start Work Section -->
 <section>
     <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
-        <div class="row align-items-end cs_gap_y_50">
-            <div class="col-xl-3">
-                <div class="cs_section_heading cs_style_5">
-                    <h3 class="cs_brackets_title cs_normal cs_fs_16"><?php esc_html_e('GALLERY', 'creative-garden-redesign'); ?></h3>
-                    <h2 class="cs_section_title cs_fs_80 mb-0"><?php esc_html_e('OUR', 'creative-garden-redesign'); ?> <span><?php esc_html_e('WORK', 'creative-garden-redesign'); ?></span></h2>
+        <div class="cs_slider cs_style_1 cs_slider_gap_24">
+            <div class="cs_section_heading cs_style_2 cs_color_1">
+                <h2 class="cs_section_title cs_fs_80 mb-0 wow fadeInDown"><?php echo wp_kses_post($about_work_title); ?></h2>
+                <div class="cs_section_right">
+                    <a href="<?php echo esc_url(home_url('/gallery/')); ?>" class="cs_btn cs_style_2 cs_bold cs_heading_color mt-2 fadeInDown"><?php esc_html_e('See More Work', 'creative-garden-redesign'); ?></a>
                 </div>
             </div>
-            <div class="col-xl-9">
-                <div class="cs_isotop cs_style_1 cs_isotop_col_3 cs_has_gutter_24 cs_lightgallery">
-                    <div class="cs_grid_sizer"></div>
-                    <?php
-                    // Get project images
-                    $projects = get_posts(array(
-                        'post_type'      => 'project',
-                        'posts_per_page' => 5,
-                        'orderby'        => 'menu_order',
-                        'order'          => 'ASC',
-                    ));
-                    
-                    $counter = 0;
-                    foreach ($projects as $project) :
-                        $counter++;
-                        $featured_image = get_the_post_thumbnail_url($project->ID, 'large');
-                        if (!$featured_image) {
-                            $featured_image = CGR_URI . '/assets/img/work_thumb_' . (($counter - 1) % 5 + 1) . '.jpg';
-                        }
-                        $project_year = get_post_meta($project->ID, '_project_year', true);
-                        if (empty($project_year)) {
-                            $project_year = get_the_date('Y', $project->ID);
-                        }
-                    ?>
-                    <div class="cs_isotop_item<?php echo $counter == 1 ? ' wow fadeInLeft' : ($counter == 3 ? ' wow fadeInRight' : ''); ?>">
-                        <a href="<?php echo esc_url($featured_image); ?>" class="cs_gallery cs_style_1 cs_center cs_gallery_item">
-                            <img src="<?php echo esc_url($featured_image); ?>" alt="<?php echo esc_attr($project->post_title); ?>">
-                            <span class="cs_gallery_info_wrap cs_center">
-                                <span class="cs_gallery_info text-center cs_center">
-                                    <span class="cs_white_color cs_fs_16 cs_bold cs_mb_4 d-block"><?php echo esc_html($project->post_title); ?></span>
-                                    <span class="cs_white_color d-block"><?php echo esc_html($project_year); ?></span>
-                                </span>
-                            </span>
-                        </a>
-                    </div>
-                    <?php endforeach; ?>
-                </div>
+        </div>
+        <div class="cs_height_64 cs_height_lg_50"></div>
+        <div class="cs_isotop cs_style_1 cs_isotop_col_3 cs_has_gutter_24 cs_lightgallery">
+            <div class="cs_grid_sizer"></div>
+            <?php
+            // Get project images
+            $projects = get_posts(array(
+                'post_type'      => 'project',
+                'posts_per_page' => 5,
+                'orderby'        => 'menu_order',
+                'order'          => 'ASC',
+            ));
+            
+            $counter = 0;
+            foreach ($projects as $project) :
+                $counter++;
+                $featured_image = get_the_post_thumbnail_url($project->ID, 'large');
+                if (!$featured_image) {
+                    $featured_image = CGR_URI . '/assets/img/work_thumb_' . (($counter - 1) % 5 + 1) . '.jpg';
+                }
+                $project_year = get_post_meta($project->ID, '_project_year', true);
+                if (empty($project_year)) {
+                    $project_year = get_the_date('Y', $project->ID);
+                }
+            ?>
+            <div class="cs_isotop_item<?php echo $counter == 1 ? ' wow fadeInLeft' : ($counter == 3 ? ' wow fadeInRight' : ''); ?>">
+                <a href="<?php echo esc_url($featured_image); ?>" class="cs_gallery cs_style_1 cs_center cs_gallery_item">
+                    <img src="<?php echo esc_url($featured_image); ?>" alt="<?php echo esc_attr($project->post_title); ?>">
+                    <span class="cs_gallery_info_wrap cs_center">
+                        <span class="cs_gallery_info text-center cs_center">
+                            <span class="cs_white_color cs_fs_16 cs_bold cs_mb_4 d-block"><?php echo esc_html($project->post_title); ?></span>
+                            <span class="cs_white_color d-block"><?php echo esc_html($project_year); ?></span>
+                        </span>
+                    </span>
+                </a>
             </div>
+            <?php endforeach; ?>
         </div>
     </div>
     <div class="cs_height_100 cs_height_lg_70"></div>

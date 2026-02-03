@@ -2730,7 +2730,12 @@ hr {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 25px 50px;
+  gap: 25px 60px;
+}
+
+.cs_contact_info .fa-brands {
+  font-size: x-large;
+  color: black;
 }
 
 .cs_project_details_info {
@@ -4863,8 +4868,8 @@ hr {
 .cs_hero.cs_style_1 .cs_hero_funfact {
   border-radius: inherit;
   padding: 24px 16px;
-  -webkit-box-shadow: -2px 0px 7px 0px rgba(255, 255, 255, 0.5);
-          box-shadow: -2px 0px 7px 0px rgba(255, 255, 255, 0.5);
+  -webkit-box-shadow: 5px -5px 15px 5px rgb(255, 255, 255);
+          box-shadow: 5px -5px 15px 5px rgb(255, 255, 255);
 }
 .cs_hero.cs_style_1 .cs_hero_box {
   padding: 24px;
