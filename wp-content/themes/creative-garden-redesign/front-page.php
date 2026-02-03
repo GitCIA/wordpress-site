@@ -34,6 +34,9 @@ if (preg_match('~(?:youtu\.be/|youtube\.com/(?:watch\?v=|embed/|v/))([A-Za-z0-9_
     }
 }
 
+// Get values card settings
+$values_card_display = get_theme_mod('values_card_display', true);
+
 // Get feature settings
 $features_title = get_theme_mod('features_title', 'WE ARE <span>DIFFERENT</span> IN EVERY WAYS');
 
@@ -106,6 +109,7 @@ $cta_background = cgr_get_cta_background();
 </section>
 <!-- End Hero Section -->
 
+<?php if ($values_card_display) : ?>
 <!-- Start Values Section -->
 <div class="cs_height_100 cs_height_lg_70"></div>
 <div class="container">
@@ -128,6 +132,7 @@ $cta_background = cgr_get_cta_background();
     </div>
 </div>
 <!-- End Values Section -->
+<?php endif; ?>
 
 <!-- Start Feature Section -->
 <section>

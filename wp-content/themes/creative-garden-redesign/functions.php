@@ -991,6 +991,23 @@ function cgr_customize_register($wp_customize) {
         'description' => __('Use a direct video URL (mp4) or a YouTube link.', 'creative-garden-redesign'),
     ));
 
+    // Values Card Section
+    $wp_customize->add_section('cgr_values', array(
+        'title'    => __('Values Card Section', 'creative-garden-redesign'),
+        'panel'    => 'cgr_options',
+        'priority' => 12,
+    ));
+
+    $wp_customize->add_setting('values_card_display', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('values_card_display', array(
+        'label'   => __('Display Values Card', 'creative-garden-redesign'),
+        'section' => 'cgr_values',
+        'type'    => 'checkbox',
+    ));
+
     // About Section
     $wp_customize->add_section('cgr_about', array(
         'title'    => __('About Section', 'creative-garden-redesign'),
