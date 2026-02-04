@@ -113,11 +113,10 @@ $cta_background = cgr_get_cta_background();
 <!-- End Hero Section -->
 
 <!-- Start Values Section -->
-<div class="cs_height_100 cs_height_lg_70"></div>
 <div class="container">
     <div class="cs_values_card cs_style_1">
         <div class="cs_values_card_left">
-            <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0"><?php esc_html_e('WHO WE ARE', 'creative-garden-redesign'); ?></h3>
+            <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0"><?php esc_html_e('About Us', 'creative-garden-redesign'); ?></h3>
         </div>
         <?php if ($values_card_display) : ?>
         <div class="cs_values_card_left">
@@ -155,10 +154,12 @@ $cta_background = cgr_get_cta_background();
                 <div class="cs_img_box cs_style_1 wow fadeInLeft">
                     <?php
                     $feature_image_id = get_theme_mod('feature_image');
+                    $object_position = get_theme_mod('feature_image_position', 'center');
+                    $img_style = 'object-fit: cover; object-position: ' . esc_attr($object_position) . ';';
                     if ($feature_image_id) {
-                        echo wp_get_attachment_image($feature_image_id, 'large');
+                        echo wp_get_attachment_image($feature_image_id, 'large', false, array('style' => $img_style));
                     } else {
-                        echo '<img src="' . esc_url(CGR_URI . '/assets/img/feature_thumb.jpg') . '" alt="">';
+                        echo '<img src="' . esc_url(CGR_URI . '/assets/img/feature_thumb.jpg') . '" alt="" style="' . $img_style . '">';
                     }
                     ?>
                 </div>
@@ -194,45 +195,61 @@ $cta_background = cgr_get_cta_background();
 </section>
 <!-- End Feature Section -->
 
-<!-- Start Working Process -->
-<section class="cs_heading_bg">
-    <div class="cs_height_100 cs_height_lg_70"></div>
+<!-- Start Work Section -->
+<section>
     <div class="container">
-        <div class="cs_section_heading cs_style_2">
-            <h2 class="cs_section_title cs_white_color cs_fs_80 mb-0 wow fadeInUp"><?php echo wp_kses_post($process_title); ?></h2>
-            <div class="cs_section_right">
-                <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0 cs_white_color"><?php esc_html_e('HOW IT WORKS', 'creative-garden-redesign'); ?></h3>
+        <div class="cs_slider cs_style_1 cs_slider_gap_24">
+            <div class="cs_section_heading cs_style_2 cs_color_1">
+                <h2 class="cs_section_title cs_fs_80 mb-0 wow fadeInDown"><?php esc_html_e('OUR WORK', 'creative-garden-redesign'); ?></h2>
+                <div class="cs_section_right">
+                    <a href="<?php echo esc_url(home_url('/gallery/')); ?>" class="cs_btn cs_style_2 cs_bold cs_heading_color mt-2 fadeInDown"><?php esc_html_e('See More Work', 'creative-garden-redesign'); ?></a>
+                </div>
             </div>
         </div>
         <div class="cs_height_64 cs_height_lg_50"></div>
-        <div class="cs_card_3_wrap">
+        <div class="cs_isotop cs_style_1 cs_isotop_col_3 cs_has_gutter_24 cs_lightgallery">
+            <div class="cs_grid_sizer"></div>
             <?php
-            $process_defaults = array(
-                1 => array('title' => 'Design consultation', 'desc' => 'In the initial step, we sit down with you to have a detailed discussion about your gardening vision and preferences.'),
-                2 => array('title' => 'Design & planning', 'desc' => 'Our team of experts meticulously crafts a custom garden design that aligns with your desires and your space characteristics.'),
-                3 => array('title' => 'Implement construction', 'desc' => 'We present the design to you for review. Once approved, we move forward to implement the plan with construction.'),
-                4 => array('title' => 'Garden decorating', 'desc' => 'With your design finalized, we put on our gardening gloves and work, creating your garden to be as beautiful as envisioned.'),
-            );
-            for ($i = 1; $i <= 4; $i++) :
-                $title = get_theme_mod('process_' . $i . '_title', $process_defaults[$i]['title']);
-                $desc = get_theme_mod('process_' . $i . '_desc', $process_defaults[$i]['desc']);
+            // Get project images
+            $projects = get_posts(array(
+                'post_type'      => 'project',
+                'posts_per_page' => 5,
+                'orderby'        => 'menu_order',
+                'order'          => 'ASC',
+            ));
+            
+            $counter = 0;
+            foreach ($projects as $project) :
+                $counter++;
+                $featured_image = get_the_post_thumbnail_url($project->ID, 'large');
+                if (!$featured_image) {
+                    $featured_image = CGR_URI . '/assets/img/work_thumb_' . (($counter - 1) % 5 + 1) . '.jpg';
+                }
+                $project_year = get_post_meta($project->ID, '_project_year', true);
+                if (empty($project_year)) {
+                    $project_year = get_the_date('Y', $project->ID);
+                }
             ?>
-            <div class="cs_card cs_style_3">
-                <div class="cs_card_in">
-                    <h3 class="cs_fs_24 cs_bold cs_white_color cs_mb_12"><?php printf('%02d  |  %s', $i, esc_html($title)); ?></h3>
-                    <p class="mb-0 cs_white_color cs_opacity_5 cs_fs_20"><?php echo esc_html($desc); ?></p>
-                </div>
+            <div class="cs_isotop_item<?php echo $counter == 1 ? ' wow fadeInLeft' : ($counter == 3 ? ' wow fadeInRight' : ''); ?>">
+                <a href="<?php echo esc_url($featured_image); ?>" class="cs_gallery cs_style_1 cs_center cs_gallery_item">
+                    <img src="<?php echo esc_url($featured_image); ?>" alt="<?php echo esc_attr($project->post_title); ?>">
+                    <span class="cs_gallery_info_wrap cs_center">
+                        <span class="cs_gallery_info text-center cs_center">
+                            <span class="cs_white_color cs_fs_16 cs_bold cs_mb_4 d-block"><?php echo esc_html($project->post_title); ?></span>
+                            <span class="cs_white_color d-block"><?php echo esc_html($project_year); ?></span>
+                        </span>
+                    </span>
+                </a>
             </div>
-            <?php endfor; ?>
+            <?php endforeach; ?>
         </div>
     </div>
     <div class="cs_height_100 cs_height_lg_70"></div>
 </section>
-<!-- End Working Process -->
+<!-- End Work Section -->
 
 <!-- Start Services Section -->
 <section>
-    <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
         <div class="cs_section_heading cs_style_3">
             <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0 wow fadeInUp"><?php esc_html_e('SERVICES', 'creative-garden-redesign'); ?></h3>
@@ -317,9 +334,43 @@ $cta_background = cgr_get_cta_background();
 </section>
 <!-- End Services Section -->
 
+<!-- Start Working Process -->
+<section class="cs_heading_bg">
+    <div class="container">
+        <div class="cs_section_heading cs_style_2">
+            <h2 class="cs_section_title cs_white_color cs_fs_80 mb-0 wow fadeInUp"><?php echo wp_kses_post($process_title); ?></h2>
+            <div class="cs_section_right">
+                <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0 cs_white_color"><?php esc_html_e('HOW IT WORKS', 'creative-garden-redesign'); ?></h3>
+            </div>
+        </div>
+        <div class="cs_height_64 cs_height_lg_50"></div>
+        <div class="cs_card_3_wrap">
+            <?php
+            $process_defaults = array(
+                1 => array('title' => 'Design consultation', 'desc' => 'In the initial step, we sit down with you to have a detailed discussion about your gardening vision and preferences.'),
+                2 => array('title' => 'Design & planning', 'desc' => 'Our team of experts meticulously crafts a custom garden design that aligns with your desires and your space characteristics.'),
+                3 => array('title' => 'Implement construction', 'desc' => 'We present the design to you for review. Once approved, we move forward to implement the plan with construction.'),
+                4 => array('title' => 'Garden decorating', 'desc' => 'With your design finalized, we put on our gardening gloves and work, creating your garden to be as beautiful as envisioned.'),
+            );
+            for ($i = 1; $i <= 4; $i++) :
+                $title = get_theme_mod('process_' . $i . '_title', $process_defaults[$i]['title']);
+                $desc = get_theme_mod('process_' . $i . '_desc', $process_defaults[$i]['desc']);
+            ?>
+            <div class="cs_card cs_style_3">
+                <div class="cs_card_in">
+                    <h3 class="cs_fs_24 cs_bold cs_white_color cs_mb_12"><?php printf('%02d  |  %s', $i, esc_html($title)); ?></h3>
+                    <p class="mb-0 cs_white_color cs_opacity_5 cs_fs_20"><?php echo esc_html($desc); ?></p>
+                </div>
+            </div>
+            <?php endfor; ?>
+        </div>
+    </div>
+    <div class="cs_height_100 cs_height_lg_70"></div>
+</section>
+<!-- End Working Process -->
+
 <!-- Start Testimonial Section -->
 <section id="cs_testimonial" class="cs_gray_bg">
-    <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
         <div class="text-center">
             <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0 wow fadeInDown"><?php esc_html_e('TESTIMONIAL', 'creative-garden-redesign'); ?></h3>
@@ -381,93 +432,8 @@ $cta_background = cgr_get_cta_background();
 </section>
 <!-- End Testimonial Section -->
 
-<!-- Start Works Section -->
-<section>
-    <div class="cs_height_100 cs_height_lg_70"></div>
-    <div class="container">
-        <div class="cs_section_heading cs_style_2 cs_color_1">
-            <h2 class="cs_section_title cs_fs_80 mb-0 wow fadeInDown"><?php esc_html_e('GET TO', 'creative-garden-redesign'); ?> <span><?php esc_html_e('KNOW', 'creative-garden-redesign'); ?></span> <?php esc_html_e('OUR', 'creative-garden-redesign'); ?> <br><?php esc_html_e('LATEST GARDEN', 'creative-garden-redesign'); ?> <span><?php esc_html_e('WORKS', 'creative-garden-redesign'); ?></span></h2>
-            <div class="cs_section_right">
-                <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0"><?php esc_html_e('WORKS', 'creative-garden-redesign'); ?></h3>
-            </div>
-        </div>
-        <div class="cs_height_64 cs_height_lg_50"></div>
-        <div class="cs_full_width_slider_section">
-            <div class="cs_slider cs_style_1 cs_slider_gap_24">
-                <div class="cs_slider_container" data-autoplay="0" data-loop="1" data-speed="800" data-center="0" data-variable-width="1" data-slides-per-view="1">
-                    <div class="cs_slider_wrapper">
-                        <?php
-                        $projects = new WP_Query(array(
-                            'post_type'      => 'project',
-                            'posts_per_page' => 6,
-                            'orderby'        => 'date',
-                            'order'          => 'DESC',
-                        ));
-
-                        if ($projects->have_posts()) :
-                            while ($projects->have_posts()) : $projects->the_post();
-                                $location = get_post_meta(get_the_ID(), '_project_location', true);
-                                $thumb_url = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'creative-garden-redesignject') : CGR_URI . '/assets/img/project_thumb_9.jpg';
-                        ?>
-                        <div class="cs_slide">
-                            <article class="cs_card cs_style_4">
-                                <div class="cs_card_thumb cs_bg_filed cs_mb_40" data-src="<?php echo esc_url($thumb_url); ?>"></div>
-                                <div class="cs_card_info">
-                                    <ul class="cs_card_info_list cs_mp_0">
-                                        <li>
-                                            <p class="mb-0"><?php esc_html_e('NAME', 'creative-garden-redesign'); ?></p>
-                                            <h3 class="mb-0 cs_fs_20 cs_bold"><?php echo esc_html(strtoupper(get_the_title())); ?></h3>
-                                        </li>
-                                        <li>
-                                            <p class="mb-0"><?php esc_html_e('LOCATION', 'creative-garden-redesign'); ?></p>
-                                            <h3 class="mb-0 cs_fs_20 cs_bold"><?php echo esc_html(strtoupper($location)); ?></h3>
-                                        </li>
-                                    </ul>
-                                    <div class="cs_card_text"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></div>
-                                </div>
-                            </article>
-                        </div>
-                        <?php
-                            endwhile;
-                            wp_reset_postdata();
-                        else :
-                        ?>
-                        <div class="cs_slide">
-                            <div class="cs_card cs_style_4">
-                                <div class="cs_card_thumb cs_bg_filed cs_mb_40" data-src="<?php echo esc_url(CGR_URI . '/assets/img/project_thumb_9.jpg'); ?>"></div>
-                                <div class="cs_card_info">
-                                    <ul class="cs_card_info_list cs_mp_0">
-                                        <li>
-                                            <p class="mb-0">NAME</p>
-                                            <h3 class="mb-0 cs_fs_20 cs_bold">SERENE RETREAT</h3>
-                                        </li>
-                                        <li>
-                                            <p class="mb-0">LOCATION</p>
-                                            <h3 class="mb-0 cs_fs_20 cs_bold">SUNNYVALE, CA</h3>
-                                        </li>
-                                    </ul>
-                                    <div class="cs_card_text">A tranquil garden oasis perfect for your relaxation time with family or alone within your comfortable home.</div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <div class="cs_slider_arrows cs_style_3 cs_hide_lg">
-                    <div class="cs_right_arrow cs_heading_color cs_fs_20 cs_center">
-                        <span class="cs_center"><?php esc_html_e('NEXT', 'creative-garden-redesign'); ?></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="cs_height_100 cs_height_lg_70"></div>
-</section>
-<!-- End Works Section -->
-
 <!-- Start CTA Section -->
 <section class="cs_cta cs_style_1 cs_heading_bg cs_bg_filed" data-src="<?php echo esc_url($cta_background); ?>">
-    <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
         <div class="cs_cta_in">
             <h2 class="cs_cta_title cs_fs_80 cs_white_color cs_mb_40 wow fadeInDown"><?php echo wp_kses_post($cta_title); ?></h2>
