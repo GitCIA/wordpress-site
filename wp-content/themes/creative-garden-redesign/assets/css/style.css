@@ -2462,6 +2462,8 @@ hr {
 }
 .cs_img_box.cs_style_1 img {
   width: 100%;
+  height: 650px;
+  object-fit: cover;
   border-radius: 20px;
 }
 

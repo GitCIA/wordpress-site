@@ -113,6 +113,7 @@ $cta_background = cgr_get_cta_background();
 <!-- End Hero Section -->
 
 <!-- Start Values Section -->
+<div class="cs_height_100 cs_height_lg_70"></div>
 <div class="container">
     <div class="cs_values_card cs_style_1">
         <div class="cs_values_card_left">
@@ -207,42 +208,112 @@ $cta_background = cgr_get_cta_background();
             </div>
         </div>
         <div class="cs_height_64 cs_height_lg_50"></div>
-        <div class="cs_isotop cs_style_1 cs_isotop_col_3 cs_has_gutter_24 cs_lightgallery">
-            <div class="cs_grid_sizer"></div>
+        
+        <?php
+        // Get all projects for pagination
+        $all_projects = get_posts(array(
+            'post_type'      => 'project',
+            'posts_per_page' => -1,
+            'orderby'        => 'menu_order',
+            'order'          => 'ASC',
+        ));
+        
+        $per_page = 5;
+        $max_pages = 3;
+        $display_pages = 5;
+        $total_projects = count($all_projects);
+        // Always show exactly 3 pages with images
+        $total_pages = $max_pages;
+
+        // Build fallback image list that exists on server
+        $fallback_paths = glob(CGR_DIR . '/assets/img/work_thumb_*.jpg');
+        if (empty($fallback_paths)) {
+            $fallback_paths = glob(CGR_DIR . '/assets/img/*.jpg');
+        }
+        $fallback_urls = array();
+        if (!empty($fallback_paths)) {
+            foreach ($fallback_paths as $path) {
+                $fallback_urls[] = CGR_URI . '/assets/img/' . basename($path);
+            }
+        }
+        ?>
+        
+        <!-- Work Slider with Pagination -->
+        <div class="cs_work_slider cs_gallery_slider" data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "dots": false, "arrows": true, "infinite": false, "speed": 500}' data-max-pages="<?php echo esc_attr($max_pages); ?>" data-total-pages="<?php echo esc_attr($display_pages); ?>" data-gallery-url="<?php echo esc_url(home_url('/gallery/')); ?>">
             <?php
-            // Get project images
-            $projects = get_posts(array(
-                'post_type'      => 'project',
-                'posts_per_page' => 5,
-                'orderby'        => 'menu_order',
-                'order'          => 'ASC',
-            ));
-            
-            $counter = 0;
-            foreach ($projects as $project) :
-                $counter++;
-                $featured_image = get_the_post_thumbnail_url($project->ID, 'large');
-                if (!$featured_image) {
-                    $featured_image = CGR_URI . '/assets/img/work_thumb_' . (($counter - 1) % 5 + 1) . '.jpg';
-                }
-                $project_year = get_post_meta($project->ID, '_project_year', true);
-                if (empty($project_year)) {
-                    $project_year = get_the_date('Y', $project->ID);
-                }
+            for ($page = 0; $page < $total_pages; $page++) :
             ?>
-            <div class="cs_isotop_item<?php echo $counter == 1 ? ' wow fadeInLeft' : ($counter == 3 ? ' wow fadeInRight' : ''); ?>">
-                <a href="<?php echo esc_url($featured_image); ?>" class="cs_gallery cs_style_1 cs_center cs_gallery_item">
-                    <img src="<?php echo esc_url($featured_image); ?>" alt="<?php echo esc_attr($project->post_title); ?>">
-                    <span class="cs_gallery_info_wrap cs_center">
-                        <span class="cs_gallery_info text-center cs_center">
-                            <span class="cs_white_color cs_fs_16 cs_bold cs_mb_4 d-block"><?php echo esc_html($project->post_title); ?></span>
-                            <span class="cs_white_color d-block"><?php echo esc_html($project_year); ?></span>
-                        </span>
-                    </span>
-                </a>
+            <div class="cs_gallery_page">
+                <div class="cs_isotop cs_style_1 cs_isotop_col_3 cs_has_gutter_24 cs_lightgallery">
+                    <div class="cs_grid_sizer"></div>
+                    <?php
+                    $counter = 0;
+                    for ($i = 0; $i < $per_page; $i++) :
+                        $counter++;
+                        $global_index = ($page * $per_page) + $i;
+                        $project = isset($all_projects[$global_index]) ? $all_projects[$global_index] : null;
+
+                        if ($project) {
+                            $thumb_id = get_post_thumbnail_id($project->ID);
+                            $featured_image = '';
+                            if ($thumb_id) {
+                                $thumb_path = get_attached_file($thumb_id);
+                                if ($thumb_path && file_exists($thumb_path)) {
+                                    $featured_image = wp_get_attachment_image_url($thumb_id, 'large');
+                                }
+                            }
+                            if (!$featured_image && !empty($fallback_urls)) {
+                                $featured_image = $fallback_urls[$global_index % count($fallback_urls)];
+                            }
+                            $project_title = $project->post_title;
+                            $project_year = get_post_meta($project->ID, '_project_year', true);
+                            if (empty($project_year)) {
+                                $project_year = get_the_date('Y', $project->ID);
+                            }
+                        } else {
+                            $featured_image = !empty($fallback_urls) ? $fallback_urls[$global_index % count($fallback_urls)] : '';
+                            $project_title = __('Project', 'creative-garden-redesign');
+                            $project_year = date('Y');
+                        }
+                    ?>
+                    <div class="cs_isotop_item<?php echo $counter == 1 ? ' wow fadeInLeft' : ($counter == 3 ? ' wow fadeInRight' : ''); ?>">
+                        <?php if (!empty($featured_image)) : ?>
+                        <a href="<?php echo esc_url($featured_image); ?>" class="cs_gallery cs_style_1 cs_center cs_gallery_item">
+                            <img src="<?php echo esc_url($featured_image); ?>" alt="<?php echo esc_attr($project_title); ?>">
+                            <span class="cs_gallery_info_wrap cs_center">
+                                <span class="cs_gallery_info text-center cs_center">
+                                    <span class="cs_white_color cs_fs_16 cs_bold cs_mb_4 d-block"><?php echo esc_html($project_title); ?></span>
+                                    <span class="cs_white_color d-block"><?php echo esc_html($project_year); ?></span>
+                                </span>
+                            </span>
+                        </a>
+                        <?php endif; ?>
+                    </div>
+                    <?php endfor; ?>
+                </div>
             </div>
-            <?php endforeach; ?>
+            <?php endfor; ?>
         </div>
+        
+        <!-- Pagination Arrows -->
+        <?php if ($total_pages > 1) : ?>
+        <div class="cs_height_64 cs_height_lg_50"></div>
+        <div class="d-flex justify-content-center">
+            <div class="cs_slider_arrows cs_style_4">
+                <div class="cs_left_arrow cs_heading_color">   
+                    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.499953 9.00005C0.499953 8.80823 0.573265 8.61623 0.719703 8.4698L8.2197 0.969797C8.51277 0.676734 8.98733 0.676734 9.2802 0.969797C9.57308 1.26286 9.57327 1.73742 9.2802 2.0303L2.31045 9.00005L9.2802 15.9698C9.57327 16.2629 9.57327 16.7374 9.2802 17.0303C8.98714 17.3232 8.51258 17.3234 8.2197 17.0303L0.719703 9.5303C0.573265 9.38386 0.499953 9.19186 0.499953 9.00005Z" fill="currentColor"/>
+                    </svg>                                                
+                </div>
+                <div class="cs_slider_number cs_style_2 cs_bold"></div>
+                <div class="cs_right_arrow cs_heading_color">
+                    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.50005 8.99995C9.50005 9.19177 9.42673 9.38377 9.2803 9.5302L1.7803 17.0302C1.48723 17.3233 1.01267 17.3233 0.719797 17.0302C0.426922 16.7371 0.426734 16.2626 0.719797 15.9697L7.68955 8.99995L0.719797 2.0302C0.426734 1.73714 0.426734 1.26258 0.719797 0.969702C1.01286 0.676826 1.48742 0.67664 1.7803 0.969702L9.2803 8.4697C9.42673 8.61614 9.50005 8.80814 9.50005 8.99995Z" fill="currentColor"/>
+                    </svg>                                     
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
     <div class="cs_height_100 cs_height_lg_70"></div>
 </section>
@@ -336,6 +407,7 @@ $cta_background = cgr_get_cta_background();
 
 <!-- Start Working Process -->
 <section class="cs_heading_bg">
+    <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
         <div class="cs_section_heading cs_style_2">
             <h2 class="cs_section_title cs_white_color cs_fs_80 mb-0 wow fadeInUp"><?php echo wp_kses_post($process_title); ?></h2>
@@ -371,6 +443,7 @@ $cta_background = cgr_get_cta_background();
 
 <!-- Start Testimonial Section -->
 <section id="cs_testimonial" class="cs_gray_bg">
+    <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
         <div class="text-center">
             <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0 wow fadeInDown"><?php esc_html_e('TESTIMONIAL', 'creative-garden-redesign'); ?></h3>
@@ -434,6 +507,7 @@ $cta_background = cgr_get_cta_background();
 
 <!-- Start CTA Section -->
 <section class="cs_cta cs_style_1 cs_heading_bg cs_bg_filed" data-src="<?php echo esc_url($cta_background); ?>">
+    <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
         <div class="cs_cta_in">
             <h2 class="cs_cta_title cs_fs_80 cs_white_color cs_mb_40 wow fadeInDown"><?php echo wp_kses_post($cta_title); ?></h2>

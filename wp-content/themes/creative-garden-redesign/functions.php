@@ -1357,44 +1357,104 @@ function cgr_customize_register($wp_customize) {
         'priority' => 35,
     ));
 
-    $wp_customize->add_setting('contact_email', array(
-        'default'           => 'sean@creativegardendesign.ie',
+    $wp_customize->add_setting('contact_studio_1_name', array(
+        'default'           => 'Dublin Studio',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('contact_studio_1_name', array(
+        'label'   => __('Studio 1 Name', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('contact_studio_1_address', array(
+        'default'           => "3 Landsdowne Valley Park\nDublin",
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+    $wp_customize->add_control('contact_studio_1_address', array(
+        'label'   => __('Studio 1 Address', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'textarea',
+    ));
+
+    $wp_customize->add_setting('contact_studio_1_tel', array(
+        'default'           => '+353 (0) 1 4920101',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('contact_studio_1_tel', array(
+        'label'   => __('Studio 1 Tel/Fax', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('contact_studio_1_mobile', array(
+        'default'           => '+353 (0) 86 8146924',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('contact_studio_1_mobile', array(
+        'label'   => __('Studio 1 Mobile', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('contact_studio_1_email', array(
+        'default'           => 'cgdsean@gmail.com',
         'sanitize_callback' => 'sanitize_email',
     ));
-    $wp_customize->add_control('contact_email', array(
-        'label'   => __('Contact Email', 'creative-garden-redesign'),
+    $wp_customize->add_control('contact_studio_1_email', array(
+        'label'   => __('Studio 1 Email', 'creative-garden-redesign'),
         'section' => 'cgr_contact',
         'type'    => 'email',
     ));
 
-    $wp_customize->add_setting('contact_phone', array(
-        'default'           => '+123 456 7890',
+    $wp_customize->add_setting('contact_studio_2_name', array(
+        'default'           => 'Midlands Studio',
         'sanitize_callback' => 'sanitize_text_field',
     ));
-    $wp_customize->add_control('contact_phone', array(
-        'label'   => __('Contact Phone', 'creative-garden-redesign'),
+    $wp_customize->add_control('contact_studio_2_name', array(
+        'label'   => __('Studio 2 Name', 'creative-garden-redesign'),
         'section' => 'cgr_contact',
         'type'    => 'text',
     ));
 
-    $wp_customize->add_setting('contact_address', array(
-        'default'           => '123 Any Where St, Any City, Any State',
+    $wp_customize->add_setting('contact_studio_2_address', array(
+        'default'           => "Cloonteagh\nNewtownforbes\nLongford",
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+    $wp_customize->add_control('contact_studio_2_address', array(
+        'label'   => __('Studio 2 Address', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'textarea',
+    ));
+
+    $wp_customize->add_setting('contact_studio_2_tel', array(
+        'default'           => '+353 (0)43 3329787',
         'sanitize_callback' => 'sanitize_text_field',
     ));
-    $wp_customize->add_control('contact_address', array(
-        'label'   => __('Contact Address', 'creative-garden-redesign'),
+    $wp_customize->add_control('contact_studio_2_tel', array(
+        'label'   => __('Studio 2 Tel/Fax', 'creative-garden-redesign'),
         'section' => 'cgr_contact',
         'type'    => 'text',
     ));
 
-    $wp_customize->add_setting('contact_address_2', array(
-        'default'           => '',
+    $wp_customize->add_setting('contact_studio_2_mobile', array(
+        'default'           => '+353 (0) 86 8146924',
         'sanitize_callback' => 'sanitize_text_field',
     ));
-    $wp_customize->add_control('contact_address_2', array(
-        'label'   => __('Contact Address 2', 'creative-garden-redesign'),
+    $wp_customize->add_control('contact_studio_2_mobile', array(
+        'label'   => __('Studio 2 Mobile', 'creative-garden-redesign'),
         'section' => 'cgr_contact',
         'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('contact_studio_2_email', array(
+        'default'           => 'cgdsean@gmail.com',
+        'sanitize_callback' => 'sanitize_email',
+    ));
+    $wp_customize->add_control('contact_studio_2_email', array(
+        'label'   => __('Studio 2 Email', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'email',
     ));
 
     $wp_customize->add_setting('contact_map_display', array(

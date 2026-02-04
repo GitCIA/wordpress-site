@@ -230,7 +230,11 @@
         var $slider = $(this);
         var $container = $slider.closest('.container');
         var totalPages = $slider.find('.cs_gallery_page').length;
+        var displayPages = $slider.data('total-pages') || totalPages;
         var currentPage = 1;
+        var maxPages = $slider.data('max-pages');
+        var galleryUrl = $slider.data('gallery-url');
+        var isWorkSlider = $slider.hasClass('cs_work_slider');
 
         // Parse slick options from data attribute
         var slickOptions = {
@@ -287,7 +291,7 @@
           currentPage = (currentSlide !== undefined && currentSlide >= 0) ? currentSlide + 1 : 1;
           var $sliderNumber = $container.find('.cs_slider_number');
           if ($sliderNumber.length > 0) {
-            $sliderNumber.html('<span>' + currentPage + '</span><span class="cs_slider_number_seperator"></span><span>' + totalPages + '</span>');
+            $sliderNumber.html('<span>' + currentPage + '</span><span class="cs_slider_number_seperator"></span><span>' + displayPages + '</span>');
           }
           
           // Recalculate height after slide change
@@ -300,6 +304,16 @@
         });
 
         $container.find('.cs_right_arrow').on('click', function() {
+          // For work slider on front page with max pages limit
+          if (isWorkSlider && maxPages && galleryUrl) {
+            var currentSlide = $slider.slick('slickCurrentSlide');
+              // If we're on the last page and trying to go next
+              if (currentSlide >= totalPages - 1) {
+              // Redirect to gallery page
+              window.location.href = galleryUrl;
+              return;
+            }
+          }
           $slider.slick('slickNext');
         });
 
