@@ -1004,7 +1004,7 @@ function cgr_customize_register($wp_customize) {
     ));
     $wp_customize->add_control('values_card_display', array(
         'label'   => __('Display Values Card Items', 'creative-garden-redesign'),
-        'section' => 'cgr_values',
+        'section' => 'cgr_features',
         'type'    => 'checkbox',
     ));
 
@@ -1216,6 +1216,27 @@ function cgr_customize_register($wp_customize) {
         'label'   => __('Display Features Button', 'creative-garden-redesign'),
         'section' => 'cgr_features',
         'type'    => 'checkbox',
+    ));
+
+    // Feature Image
+    $wp_customize->add_setting('feature_image', array(
+        'sanitize_callback' => 'absint',
+    ));
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'feature_image', array(
+        'label'     => __('Feature Image', 'creative-garden-redesign'),
+        'section'   => 'cgr_features',
+        'mime_type' => 'image',
+    )));
+
+    $wp_customize->add_setting('feature_image_position', array(
+        'default'           => 'center',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('feature_image_position', array(
+        'label'       => __('Feature Image Position (object-position)', 'creative-garden-redesign'),
+        'description' => __('e.g., center, top, bottom, left, right, top left, etc.', 'creative-garden-redesign'),
+        'section'     => 'cgr_features',
+        'type'        => 'text',
     ));
 
     // Feature items (4)
