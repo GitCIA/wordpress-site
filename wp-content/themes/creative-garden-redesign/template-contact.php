@@ -8,80 +8,22 @@
 
 get_header();
 
-// Contact Page Customizer Options
-$contact_email = get_theme_mod('contact_email', 'hallo@creativegardendesign.com');
-$contact_phone = get_theme_mod('contact_phone', '+123 456 7890');
-$contact_address = get_theme_mod('contact_address', '123 Any Where St, Any City, Any State');
-$contact_address_2 = get_theme_mod('contact_address_2', '');
+// Studio Information
+$studio_1_name = get_theme_mod('studio_1_name', 'Dublin Studio');
+$studio_1_address = get_theme_mod('studio_1_address', '3 Landsdowne Valley Park, Dublin');
+$studio_1_phone = get_theme_mod('studio_1_phone', '+353 (0) 1 4920101');
+$studio_1_mobile = get_theme_mod('studio_1_mobile', '+353 (0) 86 8146924');
+$studio_1_email = get_theme_mod('studio_1_email', 'cgdsean@gmail.com');
+
+$studio_2_name = get_theme_mod('studio_2_name', 'Midlands Studio');
+$studio_2_address = get_theme_mod('studio_2_address', 'Cloonteagh, Newtownforbes, Longford');
+$studio_2_phone = get_theme_mod('studio_2_phone', '+353 (0)43 3329787');
+$studio_2_mobile = get_theme_mod('studio_2_mobile', '+353 (0) 86 8146924');
+$studio_2_email = get_theme_mod('studio_2_email', 'cgdsean@gmail.com');
+
 $contact_map_display = get_theme_mod('contact_map_display', true);
 $contact_map_embed = get_theme_mod('google_map_embed', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96652.27317354927!2d-74.33557928194516!3d40.79756494697628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3a82f1352d0dd%3A0x81d4f72c4435aab5!2sTroy+Meadows+Wetlands!5e0!3m2!1sen!2sbd!4v1563075599994!5m2!1sen!2sbd');
 
-$contact_info_html = '';
-ob_start();
-?>
-<div class="cs_section_heading cs_style_4 cs_mb_25">
-    <h2 class="cs_section_title cs_fs_32 cs_bold mb-0"><?php esc_html_e('GET IN', 'creative-garden-redesign'); ?> <span><?php esc_html_e('TOUCH', 'creative-garden-redesign'); ?></span></h2>
-</div>
-<ul class="cs_contact_info cs_mp_0">
-    <li>
-        <p class="mb-0"><?php esc_html_e('EMAIL', 'creative-garden-redesign'); ?></p>
-        <h4 class="mb-0 cs_fs_20 cs_bold"><a href="mailto:<?php echo esc_attr($contact_email); ?>"><?php echo esc_html($contact_email); ?></a></h4>
-    </li>
-    <li>
-        <p class="mb-0"><?php esc_html_e('PHONE', 'creative-garden-redesign'); ?></p>
-        <h4 class="mb-0 cs_fs_20 cs_bold"><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_phone)); ?>"><?php echo esc_html($contact_phone); ?></a></h4>
-    </li>
-    <li>
-        <p class="mb-0"><?php esc_html_e('ADDRESS', 'creative-garden-redesign'); ?></p>
-        <h4 class="mb-0 cs_fs_20 cs_bold"><?php echo esc_html($contact_address); ?></h4>
-    </li>
-    <?php if (!empty($contact_address_2)) : ?>
-    <li>
-        <p class="mb-0"><?php esc_html_e('ADDRESS 2', 'creative-garden-redesign'); ?></p>
-        <h4 class="mb-0 cs_fs_20 cs_bold"><?php echo esc_html($contact_address_2); ?></h4>
-    </li>
-    <?php endif; ?>
-    <?php
-    $facebook = get_theme_mod('social_facebook');
-    $instagram = get_theme_mod('social_instagram');
-    $whatsapp = get_theme_mod('social_whatsapp');
-    if ($facebook || $instagram || $whatsapp) :
-    ?>
-    <li>
-        <p class="mb-0"><?php esc_html_e('SOCIAL', 'creative-garden-redesign'); ?></p>
-        <ul class="cs_footer_links cs_mp_0">
-            <?php if ($facebook) : ?>
-            <li>
-                <a href="<?php echo esc_url($facebook); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e('Facebook', 'creative-garden-redesign'); ?>">
-                    <i class="fa-brands fa-facebook-f"></i>
-                </a>
-            </li>
-            <?php endif; ?>
-
-            <?php if ($instagram) : ?>
-            <li>
-                <a href="<?php echo esc_url($instagram); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e('Instagram', 'creative-garden-redesign'); ?>">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-            </li>
-            <?php endif; ?>
-
-            <?php if ($whatsapp) :
-                $whatsapp_url = 'https://wa.me/' . preg_replace('/[^0-9]/', '', $whatsapp);
-            ?>
-            <li>
-                <a href="<?php echo esc_url($whatsapp_url); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e('WhatsApp', 'creative-garden-redesign'); ?>">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </a>
-            </li>
-            <?php endif; ?>
-        </ul>
-    </li>
-    <?php endif; ?>
-</ul>
-<?php
-$contact_info_html = ob_get_clean();
-?>
 ?>
 
 <!-- Start Page Heading Section -->
@@ -97,16 +39,100 @@ $contact_info_html = ob_get_clean();
 <div class="cs_height_100 cs_height_lg_70"></div>
 <div class="container">
     <div class="row cs_gap_y_40">
-        <div class="col-lg-5">
+        <div class="col-lg-6">
             <?php if ($contact_map_display) : ?>
                 <div class="cs_map">
                     <iframe id="map" src="<?php echo esc_url($contact_map_embed); ?>" allowfullscreen></iframe>
                 </div>
             <?php else : ?>
-                <?php echo $contact_info_html; ?>
+                <div class="cs_section_heading cs_style_4 cs_mb_25">
+                    <h2 class="cs_section_title cs_fs_32 cs_bold mb-0"><?php esc_html_e('GET IN', 'creative-garden-redesign'); ?> <span><?php esc_html_e('TOUCH', 'creative-garden-redesign'); ?></span></h2>
+                </div>
+                <div class="row cs_gap_y_40">
+                    <div class="col-sm-6">
+                        <h4 class="cs_fs_20 cs_bold cs_mb_16"><?php echo esc_html($studio_1_name); ?></h4>
+                        <ul class="cs_contact_info cs_mp_0">
+                            <li>
+                                <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('ADDRESS', 'creative-garden-redesign'); ?></h5>
+                                <p class="mb-0"><?php echo esc_html($studio_1_address); ?></p>
+                            </li>
+                            <li>
+                                <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('TEL/FAX', 'creative-garden-redesign'); ?></h5>
+                                <p class="mb-0"><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $studio_1_phone)); ?>"><?php echo esc_html($studio_1_phone); ?></a></p>
+                            </li>
+                            <li>
+                                <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('MOBILE', 'creative-garden-redesign'); ?></h5>
+                                <p class="mb-0"><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $studio_1_mobile)); ?>"><?php echo esc_html($studio_1_mobile); ?></a></p>
+                            </li>
+                            <li>
+                                <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('EMAIL', 'creative-garden-redesign'); ?></h5>
+                                <p class="mb-0"><a href="mailto:<?php echo esc_attr($studio_1_email); ?>"><?php echo esc_html($studio_1_email); ?></a></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4 class="cs_fs_20 cs_bold cs_mb_16"><?php echo esc_html($studio_2_name); ?></h4>
+                        <ul class="cs_contact_info cs_mp_0">
+                            <li>
+                                <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('ADDRESS', 'creative-garden-redesign'); ?></h5>
+                                <p class="mb-0"><?php echo esc_html($studio_2_address); ?></p>
+                            </li>
+                            <li>
+                                <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('TEL/FAX', 'creative-garden-redesign'); ?></h5>
+                                <p class="mb-0"><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $studio_2_phone)); ?>"><?php echo esc_html($studio_2_phone); ?></a></p>
+                            </li>
+                            <li>
+                                <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('MOBILE', 'creative-garden-redesign'); ?></h5>
+                                <p class="mb-0"><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $studio_2_mobile)); ?>"><?php echo esc_html($studio_2_mobile); ?></a></p>
+                            </li>
+                            <li>
+                                <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('EMAIL', 'creative-garden-redesign'); ?></h5>
+                                <p class="mb-0"><a href="mailto:<?php echo esc_attr($studio_2_email); ?>"><?php echo esc_html($studio_2_email); ?></a></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <?php
+                $facebook = get_theme_mod('social_facebook');
+                $instagram = get_theme_mod('social_instagram');
+                $whatsapp = get_theme_mod('social_whatsapp');
+                if ($facebook || $instagram || $whatsapp) :
+                ?>
+                <div class="cs_height_40 cs_height_lg_30"></div>
+                <div class="cs_section_heading cs_style_4">
+                    <h3 class="cs_normal cs_fs_16 mb-0"><?php esc_html_e('SOCIAL', 'creative-garden-redesign'); ?></h3>
+                </div>
+                <ul class="cs_footer_links cs_mp_0 cs_mb_0">
+                    <?php if ($facebook) : ?>
+                    <li>
+                        <a href="<?php echo esc_url($facebook); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e('Facebook', 'creative-garden-redesign'); ?>">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+
+                    <?php if ($instagram) : ?>
+                    <li>
+                        <a href="<?php echo esc_url($instagram); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e('Instagram', 'creative-garden-redesign'); ?>">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+
+                    <?php if ($whatsapp) :
+                        $whatsapp_url = 'https://wa.me/' . preg_replace('/[^0-9]/', '', $whatsapp);
+                    ?>
+                    <li>
+                        <a href="<?php echo esc_url($whatsapp_url); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e('WhatsApp', 'creative-garden-redesign'); ?>">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+                </ul>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
-        <div class="col-lg-7">
+        <div class="col-lg-6">
             <div class="cs_pl_40">
                 <div class="cs_section_heading cs_style_4 cs_mb_25">
                     <h2 class="cs_section_title cs_fs_32 cs_bold mb-0"><?php esc_html_e('SEND US A', 'creative-garden-redesign'); ?> <span><?php esc_html_e('MESSAGE', 'creative-garden-redesign'); ?></span></h2>
@@ -130,7 +156,91 @@ $contact_info_html = ob_get_clean();
                 </form>
                 <?php if ($contact_map_display) : ?>
                     <div class="cs_height_60 cs_height_lg_40"></div>
-                    <?php echo $contact_info_html; ?>
+                    <div class="cs_section_heading cs_style_4 cs_mb_25">
+                        <h2 class="cs_section_title cs_fs_32 cs_bold mb-0"><?php esc_html_e('GET IN', 'creative-garden-redesign'); ?> <span><?php esc_html_e('TOUCH', 'creative-garden-redesign'); ?></span></h2>
+                    </div>
+                    <div class="row cs_gap_y_40">
+                        <div class="col-sm-6">
+                            <h4 class="cs_fs_20 cs_bold cs_mb_16"><?php echo esc_html($studio_1_name); ?></h4>
+                            <ul class="cs_contact_info cs_mp_0">
+                                <li>
+                                    <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('ADDRESS', 'creative-garden-redesign'); ?></h5>
+                                    <p class="mb-0"><?php echo esc_html($studio_1_address); ?></p>
+                                </li>
+                                <li>
+                                    <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('TEL/FAX', 'creative-garden-redesign'); ?></h5>
+                                    <p class="mb-0"><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $studio_1_phone)); ?>"><?php echo esc_html($studio_1_phone); ?></a></p>
+                                </li>
+                                <li>
+                                    <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('MOBILE', 'creative-garden-redesign'); ?></h5>
+                                    <p class="mb-0"><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $studio_1_mobile)); ?>"><?php echo esc_html($studio_1_mobile); ?></a></p>
+                                </li>
+                                <li>
+                                    <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('EMAIL', 'creative-garden-redesign'); ?></h5>
+                                    <p class="mb-0"><a href="mailto:<?php echo esc_attr($studio_1_email); ?>"><?php echo esc_html($studio_1_email); ?></a></p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4 class="cs_fs_20 cs_bold cs_mb_16"><?php echo esc_html($studio_2_name); ?></h4>
+                            <ul class="cs_contact_info cs_mp_0">
+                                <li>
+                                    <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('ADDRESS', 'creative-garden-redesign'); ?></h5>
+                                    <p class="mb-0"><?php echo esc_html($studio_2_address); ?></p>
+                                </li>
+                                <li>
+                                    <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('TEL/FAX', 'creative-garden-redesign'); ?></h5>
+                                    <p class="mb-0"><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $studio_2_phone)); ?>"><?php echo esc_html($studio_2_phone); ?></a></p>
+                                </li>
+                                <li>
+                                    <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('MOBILE', 'creative-garden-redesign'); ?></h5>
+                                    <p class="mb-0"><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $studio_2_mobile)); ?>"><?php echo esc_html($studio_2_mobile); ?></a></p>
+                                </li>
+                                <li>
+                                    <h5 class="mb-0 cs_fs_16 cs_bold"><?php esc_html_e('EMAIL', 'creative-garden-redesign'); ?></h5>
+                                    <p class="mb-0"><a href="mailto:<?php echo esc_attr($studio_2_email); ?>"><?php echo esc_html($studio_2_email); ?></a></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="cs_height_40 cs_height_lg_30"></div>
+                    <?php
+                    $facebook = get_theme_mod('social_facebook');
+                    $instagram = get_theme_mod('social_instagram');
+                    $whatsapp = get_theme_mod('social_whatsapp');
+                    if ($facebook || $instagram || $whatsapp) :
+                    ?>
+                    <div class="cs_section_heading cs_style_4">
+                        <h3 class="cs_normal cs_fs_16 mb-0"><?php esc_html_e('SOCIAL', 'creative-garden-redesign'); ?></h3>
+                    </div>
+                    <ul class="cs_footer_links cs_mp_0 cs_mb_0">
+                        <?php if ($facebook) : ?>
+                        <li>
+                            <a href="<?php echo esc_url($facebook); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e('Facebook', 'creative-garden-redesign'); ?>">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <?php endif; ?>
+
+                        <?php if ($instagram) : ?>
+                        <li>
+                            <a href="<?php echo esc_url($instagram); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e('Instagram', 'creative-garden-redesign'); ?>">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                        </li>
+                        <?php endif; ?>
+
+                        <?php if ($whatsapp) :
+                            $whatsapp_url = 'https://wa.me/' . preg_replace('/[^0-9]/', '', $whatsapp);
+                        ?>
+                        <li>
+                            <a href="<?php echo esc_url($whatsapp_url); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e('WhatsApp', 'creative-garden-redesign'); ?>">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </a>
+                        </li>
+                        <?php endif; ?>
+                    </ul>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>

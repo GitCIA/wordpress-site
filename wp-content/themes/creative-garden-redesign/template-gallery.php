@@ -22,6 +22,15 @@ get_header();
 <section>
     <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
+        <?php $gallery_intro = get_theme_mod('gallery_intro_text', 'Take a look through our portfolio of completed gardens. Each project tells a story—from the initial concept to the finished space—highlighting our design expertise, plant knowledge, and craftsmanship.'); ?>
+        <?php if ($gallery_intro) : ?>
+        <div class="cs_section_heading cs_style_4">
+            <h2 class="cs_section_title cs_fs_32 cs_bold mb-0 wow fadeInDown"><?php echo wp_kses_post($gallery_intro); ?></h2>
+        </div>
+        <div class="cs_height_60 cs_height_lg_40"></div>
+        <?php endif; ?>
+    </div>
+    <div class="container">
         <?php
         // Get gallery images from page content or attached images
         $gallery_images = array();

@@ -9,9 +9,22 @@
 get_header();
 
 // About Page Customizer Options
-$about_subtitle_1 = get_theme_mod('about_subtitle_1', 'At CreativeGardenDesign, we are passionate about transforming outdoor spaces into breathtaking gardens that tell a unique story. Our journey began over a decade ago, driven by a shared love for nature');
-$about_subtitle_2 = get_theme_mod('about_subtitle_2', 'and design. Since then, we have dedicated ourselves to creating gardens that enhance your property. Our solid commitment to sustainability, innovation, and collaboration has been the foundation of our success.');
-$about_section_title = get_theme_mod('about_section_title', 'CRAFTING <br><span>DREAM GARDENS</span> <br>INTO REALITY');
+$about_sections = array();
+for ($i = 1; $i <= 3; $i++) {
+    $title = get_theme_mod('about_section_' . $i . '_title', '');
+    $text_1 = get_theme_mod('about_section_' . $i . '_text_1', '');
+    $text_2 = get_theme_mod('about_section_' . $i . '_text_2', '');
+    
+    // Only add section if it has content
+    if (!empty($title) || !empty($text_1) || !empty($text_2)) {
+        $about_sections[] = array(
+            'title'  => $title,
+            'text_1' => $text_1,
+            'text_2' => $text_2,
+        );
+    }
+}
+
 $about_team_title = get_theme_mod('about_team_title', 'OUR TEAM <br><span>OF</span> DEDICATION');
 $about_work_title = get_theme_mod('about_work_title', 'OUR <br><span>WORK</span>');
 $about_video_url = get_theme_mod('about_video_url', 'https://youtu.be/LsU5Y5svvq8');
@@ -34,20 +47,22 @@ $about_brand_count = absint(get_theme_mod('about_brand_count', 6));
 <section>
     <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
+        <?php foreach ($about_sections as $section) : ?>
         <div class="row cs_gap_x_40 cs_gap_y_24">
             <div class="col-lg-4">
                 <div class="cs_section_heading cs_style_4">
-                    <h2 class="cs_section_title cs_fs_32 cs_bold mb-0 wow fadeInDown"><?php echo wp_kses_post($about_section_title); ?></h2>
+                    <h2 class="cs_section_title cs_fs_32 cs_bold mb-0 wow fadeInDown"><?php echo wp_kses_post($section['title']); ?></h2>
                 </div>
             </div>
             <div class="col-lg-4">
-                <p class="cs_fs_20 mb-0"><?php echo esc_html($about_subtitle_1); ?></p>
+                <p class="cs_fs_20 mb-0"><?php echo esc_html($section['text_1']); ?></p>
             </div>
             <div class="col-lg-4">
-                <p class="cs_fs_20 mb-0"><?php echo esc_html($about_subtitle_2); ?></p>
+                <p class="cs_fs_20 mb-0"><?php echo esc_html($section['text_2']); ?></p>
             </div>
         </div>
         <div class="cs_height_56 cs_height_lg_35"></div>
+        <?php endforeach; ?>
         <div class="row cs_gap_y_30">
             <div class="col-lg-4 wow fadeInLeft">
                 <a href="<?php echo esc_url($about_video_url); ?>" class="cs_video_block cs_style_1 cs_bg_filed cs_video_open cs_center cs_radius_20" data-src="<?php echo esc_url($about_video_bg); ?>">

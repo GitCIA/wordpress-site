@@ -36,11 +36,9 @@ get_header();
                     <div class="cs_post_info">
                         <h2 class="cs_post_title"><?php the_title(); ?></h2>
                         <?php if ($position) : ?>
-                        <p class="cs_post_meta cs_ternary_color cs_semi_bold cs_primary_font"><?php echo esc_html($position); ?></p>
+                        <h4 class="cs_post_meta cs_ternary_color cs_semi_bold cs_primary_font mb-0"><?php echo esc_html($position); ?></h4>
                         <?php endif; ?>
-                        <?php if ($bio) : ?>
-                        <p class="cs_post_excerpt cs_mb_20"><?php echo esc_html($bio); ?></p>
-                        <?php endif; ?>
+                        <div class="cs_height_20"></div>
                         <div class="entry-content">
                             <?php the_content(); ?>
                         </div>

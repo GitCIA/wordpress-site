@@ -1069,44 +1069,135 @@ function cgr_customize_register($wp_customize) {
         'priority' => 15,
     ));
 
-    $wp_customize->add_setting('about_title', array(
+    // About Section Block 1
+    $wp_customize->add_setting('about_section_1_title', array(
         'default'           => 'CRAFTING <br><span>DREAM GARDENS</span> <br>INTO REALITY',
         'sanitize_callback' => 'wp_kses_post',
     ));
-    $wp_customize->add_control('about_title', array(
-        'label'   => __('About Title', 'creative-garden-redesign'),
+    $wp_customize->add_control('about_section_1_title', array(
+        'label'   => __('About Section 1 - Title', 'creative-garden-redesign'),
         'section' => 'cgr_about',
         'type'    => 'textarea',
     ));
 
-    $wp_customize->add_setting('about_text_1', array(
+    $wp_customize->add_setting('about_section_1_text_1', array(
         'default'           => 'At LeafLife, we are passionate about transforming outdoor spaces into breathtaking gardens that tell a unique story. Our journey began over a decade ago, driven by a shared love for nature',
         'sanitize_callback' => 'sanitize_textarea_field',
     ));
-    $wp_customize->add_control('about_text_1', array(
-        'label'   => __('About Text Column 1', 'creative-garden-redesign'),
+    $wp_customize->add_control('about_section_1_text_1', array(
+        'label'   => __('About Section 1 - Column 1', 'creative-garden-redesign'),
         'section' => 'cgr_about',
         'type'    => 'textarea',
     ));
 
-    $wp_customize->add_setting('about_text_2', array(
+    $wp_customize->add_setting('about_section_1_text_2', array(
         'default'           => 'and design. Since then, we have dedicated ourselves to creating gardens that enhance your property. Our solid commitment to sustainability, innovation, and collaboration has been the foundation of our success.',
         'sanitize_callback' => 'sanitize_textarea_field',
     ));
-    $wp_customize->add_control('about_text_2', array(
-        'label'   => __('About Text Column 2', 'creative-garden-redesign'),
+    $wp_customize->add_control('about_section_1_text_2', array(
+        'label'   => __('About Section 1 - Column 2', 'creative-garden-redesign'),
         'section' => 'cgr_about',
         'type'    => 'textarea',
     ));
 
-    $wp_customize->add_setting('about_section_title', array(
-        'default'           => 'CRAFTING <br><span>DREAM GARDENS</span> <br>INTO REALITY',
+    // About Section Block 2
+    $wp_customize->add_setting('about_section_2_enabled', array(
+        'default'           => false,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('about_section_2_enabled', array(
+        'label'   => __('Add Section 2', 'creative-garden-redesign'),
+        'section' => 'cgr_about',
+        'type'    => 'checkbox',
+    ));
+
+    $wp_customize->add_setting('about_section_2_title', array(
+        'default'           => '',
         'sanitize_callback' => 'wp_kses_post',
     ));
-    $wp_customize->add_control('about_section_title', array(
-        'label'   => __('About Section Title', 'creative-garden-redesign'),
+    $wp_customize->add_control('about_section_2_title', array(
+        'label'       => __('About Section 2 - Title', 'creative-garden-redesign'),
+        'section'     => 'cgr_about',
+        'type'        => 'textarea',
+        'active_callback' => function() {
+            return get_theme_mod('about_section_2_enabled', false);
+        },
+    ));
+
+    $wp_customize->add_setting('about_section_2_text_1', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    $wp_customize->add_control('about_section_2_text_1', array(
+        'label'           => __('About Section 2 - Column 1', 'creative-garden-redesign'),
+        'section'         => 'cgr_about',
+        'type'            => 'textarea',
+        'active_callback' => function() {
+            return get_theme_mod('about_section_2_enabled', false);
+        },
+    ));
+
+    $wp_customize->add_setting('about_section_2_text_2', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    $wp_customize->add_control('about_section_2_text_2', array(
+        'label'           => __('About Section 2 - Column 2', 'creative-garden-redesign'),
+        'section'         => 'cgr_about',
+        'type'            => 'textarea',
+        'active_callback' => function() {
+            return get_theme_mod('about_section_2_enabled', false);
+        },
+    ));
+
+    // About Section Block 3
+    $wp_customize->add_setting('about_section_3_enabled', array(
+        'default'           => false,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('about_section_3_enabled', array(
+        'label'   => __('Add Section 3', 'creative-garden-redesign'),
         'section' => 'cgr_about',
-        'type'    => 'textarea',
+        'type'    => 'checkbox',
+    ));
+
+    $wp_customize->add_setting('about_section_3_title', array(
+        'default'           => '',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+    $wp_customize->add_control('about_section_3_title', array(
+        'label'       => __('About Section 3 - Title', 'creative-garden-redesign'),
+        'section'     => 'cgr_about',
+        'type'        => 'textarea',
+        'active_callback' => function() {
+            return get_theme_mod('about_section_3_enabled', false);
+        },
+    ));
+
+    $wp_customize->add_setting('about_section_3_text_1', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    $wp_customize->add_control('about_section_3_text_1', array(
+        'label'           => __('About Section 3 - Column 1', 'creative-garden-redesign'),
+        'section'         => 'cgr_about',
+        'type'            => 'textarea',
+        'active_callback' => function() {
+            return get_theme_mod('about_section_3_enabled', false);
+        },
+    ));
+
+    $wp_customize->add_setting('about_section_3_text_2', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    $wp_customize->add_control('about_section_3_text_2', array(
+        'label'           => __('About Section 3 - Column 2', 'creative-garden-redesign'),
+        'section'         => 'cgr_about',
+        'type'            => 'textarea',
+        'active_callback' => function() {
+            return get_theme_mod('about_section_3_enabled', false);
+        },
     ));
 
     $wp_customize->add_setting('about_team_title', array(
@@ -1437,6 +1528,125 @@ function cgr_customize_register($wp_customize) {
         'label'   => __('Google Map Embed URL', 'creative-garden-redesign'),
         'section' => 'cgr_contact',
         'type'    => 'url',
+    ));
+
+    // Studio 1 - Dublin
+    $wp_customize->add_setting('studio_1_name', array(
+        'default'           => 'Dublin Studio',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('studio_1_name', array(
+        'label'   => __('Studio 1 Name', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('studio_1_address', array(
+        'default'           => '3 Landsdowne Valley Park, Dublin',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('studio_1_address', array(
+        'label'   => __('Studio 1 Address', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('studio_1_phone', array(
+        'default'           => '+353 (0) 1 4920101',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('studio_1_phone', array(
+        'label'   => __('Studio 1 Tel/Fax', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('studio_1_mobile', array(
+        'default'           => '+353 (0) 86 8146924',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('studio_1_mobile', array(
+        'label'   => __('Studio 1 Mobile', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('studio_1_email', array(
+        'default'           => 'cgdsean@gmail.com',
+        'sanitize_callback' => 'sanitize_email',
+    ));
+    $wp_customize->add_control('studio_1_email', array(
+        'label'   => __('Studio 1 Email', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'email',
+    ));
+
+    // Studio 2 - Midlands
+    $wp_customize->add_setting('studio_2_name', array(
+        'default'           => 'Midlands Studio',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('studio_2_name', array(
+        'label'   => __('Studio 2 Name', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('studio_2_address', array(
+        'default'           => 'Cloonteagh, Newtownforbes, Longford',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('studio_2_address', array(
+        'label'   => __('Studio 2 Address', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('studio_2_phone', array(
+        'default'           => '+353 (0)43 3329787',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('studio_2_phone', array(
+        'label'   => __('Studio 2 Tel/Fax', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('studio_2_mobile', array(
+        'default'           => '+353 (0) 86 8146924',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('studio_2_mobile', array(
+        'label'   => __('Studio 2 Mobile', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('studio_2_email', array(
+        'default'           => 'cgdsean@gmail.com',
+        'sanitize_callback' => 'sanitize_email',
+    ));
+    $wp_customize->add_control('studio_2_email', array(
+        'label'   => __('Studio 2 Email', 'creative-garden-redesign'),
+        'section' => 'cgr_contact',
+        'type'    => 'email',
+    ));
+
+    // Gallery Section
+    $wp_customize->add_section('cgr_gallery', array(
+        'title'    => __('Gallery Page', 'creative-garden-redesign'),
+        'panel'    => 'cgr_options',
+        'priority' => 37,
+    ));
+
+    $wp_customize->add_setting('gallery_intro_text', array(
+        'default'           => 'Take a look through our portfolio of completed gardens. Each project tells a story—from the initial concept to the finished space—highlighting our design expertise, plant knowledge, and craftsmanship.',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+    $wp_customize->add_control('gallery_intro_text', array(
+        'label'   => __('Gallery Intro Text', 'creative-garden-redesign'),
+        'section' => 'cgr_gallery',
+        'type'    => 'textarea',
     ));
 
     // Footer Section

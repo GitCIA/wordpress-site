@@ -2648,7 +2648,7 @@ hr {
   -webkit-transform: scale(0);
           transform: scale(0);
   border: 1px solid rgba(255, 255, 255, 0.5);
-  background: linear-gradient(102deg, rgba(255, 255, 255, 0.5) 2.43%, rgba(255, 255, 255, 0.1) 91.88%);
+  background: linear-gradient(102deg, rgb(55 72 54 / 96%) 2.43%, rgb(81 103 79 / 71%) 91.88%);
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
   -webkit-transition: all 0.4s ease;
@@ -2740,6 +2740,30 @@ hr {
   color: black;
 }
 
+.cs_section_heading.cs_style_4 ~ .cs_footer_links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 15px;
+}
+
+.cs_section_heading.cs_style_4 ~ .cs_footer_links a {
+  color: var(--heading-color);
+  font-size: x-large;
+  opacity: 1;
+}
+
+.cs_section_heading.cs_style_4 ~ .cs_footer_links a:hover {
+  opacity: 0.75;
+}
+
+.cs_section_heading.cs_style_4 ~ .cs_footer_links li:not(:last-child)::after {
+  content: "";
+  margin: 0;
+}
+
 .cs_project_details_info {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2827,6 +2851,10 @@ hr {
 }
 .cs_post.cs_style_1 .cs_post_meta {
   margin-bottom: 10px;
+  font-size: 20px;
+}
+.cs_post.cs_style_1 .cs_post_info {
+  color: #374836;
 }
 .cs_post.cs_style_1 .cs_post_title {
   margin-bottom: 15px;
