@@ -32,14 +32,6 @@ $tags_array = $tags ? explode(',', $tags) : array();
             </div>
             <?php endif; ?>
 
-            <?php if (!empty($tags_array)) : ?>
-            <div class="cs_service_tags cs_mb_24">
-                <?php foreach ($tags_array as $tag) : ?>
-                <span class="cs_tag"><?php echo esc_html(trim($tag)); ?></span>
-                <?php endforeach; ?>
-            </div>
-            <?php endif; ?>
-
             <div class="cs_service_content">
                 <div class="entry-content">
                     <?php the_content(); ?>
