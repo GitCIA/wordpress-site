@@ -48,7 +48,7 @@ $about_brand_count = absint(get_theme_mod('about_brand_count', 6));
     <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
         <?php foreach ($about_sections as $section) : ?>
-        <div class="row cs_gap_x_40 cs_gap_y_24">
+        <div class="row cs_gap_x_40 cs_gap_y_24 cs_about_row">
             <div class="col-lg-4">
                 <div class="cs_section_heading cs_style_4">
                     <h2 class="cs_section_title cs_fs_32 cs_bold mb-0 wow fadeInDown"><?php echo wp_kses_post($section['title']); ?></h2>
