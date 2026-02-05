@@ -44,7 +44,7 @@ $about_brand_count = absint(get_theme_mod('about_brand_count', 6));
 <!-- End Page Heading Section -->
 
 <!-- Start About Section -->
-<section>
+<section id="cs_about_section">
     <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
         <?php foreach ($about_sections as $section) : ?>
