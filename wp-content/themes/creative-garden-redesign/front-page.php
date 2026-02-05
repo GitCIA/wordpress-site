@@ -248,8 +248,7 @@ $cta_background = cgr_get_cta_background();
             $services = new WP_Query(array(
                 'post_type'      => 'service',
                 'posts_per_page' => 4,
-                'post_status'    => 'publish',
-                'orderby'        => 'menu_order title',
+                'orderby'        => 'menu_order',
                 'order'          => 'ASC',
             ));
 
@@ -262,7 +261,7 @@ $cta_background = cgr_get_cta_background();
                 $active_class = ($count === 1) ? ' active' : '';
                 $wow_class = ($count === 1) ? ' wow fadeInLeft' : (($count === 4) ? ' wow fadeInRight' : '');
             ?>
-            <article class="cs_card cs_style_1 cs_hover_active cs_heading_bg cs_bg_filed<?php echo esc_attr($active_class . $wow_class); ?>" data-src="<?php echo esc_url($thumb_url); ?>">
+            <a href="<?php the_permalink(); ?>" class="cs_card cs_style_1 cs_hover_active cs_heading_bg cs_bg_filed<?php echo esc_attr($active_class . $wow_class); ?>" data-src="<?php echo esc_url($thumb_url); ?>" aria-label="<?php echo esc_attr(get_the_title()); ?>">
                 <div class="cs_card_top">
                     <div class="cs_card_tags">
                         <?php foreach ($tags_array as $tag) : ?>
@@ -274,10 +273,10 @@ $cta_background = cgr_get_cta_background();
                     <h2 class="cs_card_title cs_white_color cs_fs_32"><?php the_title(); ?></h2>
                     <p class="cs_card_subtitle mb-0 cs_white_color"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
                 </div>
-                <a href="<?php the_permalink(); ?>" class="cs_arrow_btn cs_size_lg cs_center cs_white_bg cs_heading_color" aria-label="<?php echo esc_attr(get_the_title()); ?>">
+                <span class="cs_arrow_btn cs_size_lg cs_center cs_white_bg cs_heading_color">
                     <?php echo cgr_arrow_icon(); ?>
-                </a>
-            </article>
+                </span>
+            </a>
             <?php
             endwhile;
             wp_reset_postdata();
