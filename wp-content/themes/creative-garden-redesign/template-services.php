@@ -27,7 +27,7 @@ get_header();
             $services = new WP_Query(array(
                 'post_type'      => 'service',
                 'posts_per_page' => -1,
-                'orderby'        => 'menu_order',
+                'orderby'        => 'menu_order title',
                 'order'          => 'ASC',
             ));
 
