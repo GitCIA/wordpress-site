@@ -137,7 +137,7 @@ function cgr_register_post_types() {
         'has_archive'         => true,
         'rewrite'             => array('slug' => 'services'),
         'menu_icon'           => 'dashicons-hammer',
-        'supports'            => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
+        'supports'            => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes'),
         'show_in_rest'        => true,
     ));
 
