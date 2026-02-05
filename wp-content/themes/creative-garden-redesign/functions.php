@@ -998,16 +998,6 @@ function cgr_customize_register($wp_customize) {
         'priority' => 12,
     ));
 
-    $wp_customize->add_setting('values_card_display', array(
-        'default'           => true,
-        'sanitize_callback' => 'rest_sanitize_boolean',
-    ));
-    $wp_customize->add_control('values_card_display', array(
-        'label'   => __('Display Values Card Items', 'creative-garden-redesign'),
-        'section' => 'cgr_values',
-        'type'    => 'checkbox',
-    ));
-
     // Navigation Section
     $wp_customize->add_section('cgr_navigation', array(
         'title'    => __('Navigation Menu', 'creative-garden-redesign'),
@@ -1208,6 +1198,16 @@ function cgr_customize_register($wp_customize) {
         'type'    => 'textarea',
     ));
 
+    $wp_customize->add_setting('values_card_display', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('values_card_display', array(
+        'label'   => __('Display Values Card Items', 'creative-garden-redesign'),
+        'section' => 'cgr_features',
+        'type'    => 'checkbox',
+    ));
+
     $wp_customize->add_setting('features_button_display', array(
         'default'           => true,
         'sanitize_callback' => 'rest_sanitize_boolean',
@@ -1216,6 +1216,28 @@ function cgr_customize_register($wp_customize) {
         'label'   => __('Display Features Button', 'creative-garden-redesign'),
         'section' => 'cgr_features',
         'type'    => 'checkbox',
+    ));
+
+    $wp_customize->add_setting('feature_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'absint',
+    ));
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'feature_image', array(
+        'label'       => __('Feature Image', 'creative-garden-redesign'),
+        'section'     => 'cgr_features',
+        'mime_type'   => 'image',
+        'description' => __('Upload an image for the features section image box', 'creative-garden-redesign'),
+    )));
+
+    $wp_customize->add_setting('feature_image_position', array(
+        'default'           => 'center',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('feature_image_position', array(
+        'label'       => __('Feature Image Position', 'creative-garden-redesign'),
+        'description' => __('Set where the image focuses (e.g., center, top, bottom, left, right, top left, etc.)', 'creative-garden-redesign'),
+        'section'     => 'cgr_features',
+        'type'        => 'text',
     ));
 
     // Feature items (4)

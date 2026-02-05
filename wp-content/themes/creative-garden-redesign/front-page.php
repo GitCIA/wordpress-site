@@ -117,7 +117,7 @@ $cta_background = cgr_get_cta_background();
 <div class="container">
     <div class="cs_values_card cs_style_1">
         <div class="cs_values_card_left">
-            <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0"><?php esc_html_e('WHO WE ARE', 'creative-garden-redesign'); ?></h3>
+            <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0"><?php esc_html_e('About Us', 'creative-garden-redesign'); ?></h3>
         </div>
         <?php if ($values_card_display) : ?>
         <div class="cs_values_card_left">
@@ -155,10 +155,12 @@ $cta_background = cgr_get_cta_background();
                 <div class="cs_img_box cs_style_1 wow fadeInLeft">
                     <?php
                     $feature_image_id = get_theme_mod('feature_image');
+                    $object_position = get_theme_mod('feature_image_position', 'center');
+                    $img_style = 'object-fit: cover; object-position: ' . esc_attr($object_position) . ';';
                     if ($feature_image_id) {
-                        echo wp_get_attachment_image($feature_image_id, 'large');
+                        echo wp_get_attachment_image($feature_image_id, 'large', false, array('style' => $img_style));
                     } else {
-                        echo '<img src="' . esc_url(CGR_URI . '/assets/img/feature_thumb.jpg') . '" alt="">';
+                        echo '<img src="' . esc_url(CGR_URI . '/assets/img/feature_thumb.jpg') . '" alt="" style="' . $img_style . '">';
                     }
                     ?>
                 </div>
