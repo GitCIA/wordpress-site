@@ -849,6 +849,13 @@ function cgr_faq_filter_query($query) {
             $query->query_vars['meta_value'] = $category;
         }
     }
+    
+    // Apply menu_order to service archives and queries
+    if (!is_admin() && $query->is_main_query() && is_post_type_archive('service')) {
+        $query->set('orderby', 'menu_order');
+        $query->set('order', 'ASC');
+    }
+    
     return $query;
 }
 add_filter('pre_get_posts', 'cgr_faq_filter_query');
