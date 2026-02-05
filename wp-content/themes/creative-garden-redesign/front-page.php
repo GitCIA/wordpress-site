@@ -248,6 +248,7 @@ $cta_background = cgr_get_cta_background();
             $services = new WP_Query(array(
                 'post_type'      => 'service',
                 'posts_per_page' => 4,
+                'post_status'    => 'publish',
                 'orderby'        => 'menu_order title',
                 'order'          => 'ASC',
             ));
