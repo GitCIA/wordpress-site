@@ -323,58 +323,79 @@ $cta_background = cgr_get_cta_background();
 <section id="cs_testimonial" class="cs_gray_bg">
     <div class="cs_height_100 cs_height_lg_70"></div>
     <div class="container">
-        <div class="text-center">
-            <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0 wow fadeInDown"><?php esc_html_e('TESTIMONIAL', 'creative-garden-redesign'); ?></h3>
-        </div>
+        <h3 class="cs_brackets_title cs_normal cs_fs_16 mb-0"><?php esc_html_e('TESTIMONIAL', 'creative-garden-redesign'); ?></h3>
         <div class="cs_height_64 cs_height_lg_50"></div>
-        <div class="row">
-            <div class="col-lg-10 offset-lg-1">
-                <div class="cs_slider cs_style_1">
-                    <div class="cs_slider_container" data-autoplay="0" data-loop="1" data-speed="800" data-center="0" data-variable-width="0" data-slides-per-view="1">
-                        <div class="cs_slider_wrapper">
-                            <?php
-                            $testimonials = new WP_Query(array(
-                                'post_type'      => 'testimonial',
-                                'posts_per_page' => -1,
-                            ));
+        <div class="cs_slider cs_style_1">
+            <div class="cs_slider_container" data-autoplay="0" data-loop="1" data-speed="800" data-center="0" data-variable-width="0" data-slides-per-view="1">
+                <div class="cs_slider_wrapper">
+                    <?php
+                    $testimonials = new WP_Query(array(
+                        'post_type'      => 'testimonial',
+                        'posts_per_page' => -1,
+                    ));
 
-                            if ($testimonials->have_posts()) :
-                                $first = true;
-                                while ($testimonials->have_posts()) : $testimonials->the_post();
-                                    $name = get_post_meta(get_the_ID(), '_testimonial_name', true);
-                                    $position = get_post_meta(get_the_ID(), '_testimonial_position', true);
-                            ?>
-                            <div class="cs_slide">
-                                <div class="cs_testimonial cs_style_1 text-center<?php echo $first ? ' wow fadeInUp' : ''; ?>">
-                                    <blockquote class="cs_testimonial_blockquote cs_heading_color cs_fs_32 cs_bold cs_mb_48"><?php the_content(); ?></blockquote>
-                                    <div class="cs_testimonial_meta">
-                                        <h4 class="cs_testimonial_avatar cs_bold cs_fs_16 cs_mb_2"><?php echo esc_html(strtoupper($name ?: get_the_title())); ?></h4>
-                                        <p class="cs_testimonial_avatar_designation mb-0"><?php echo esc_html($position); ?></p>
-                                    </div>
+                    if ($testimonials->have_posts()) :
+                        $first = true;
+                        while ($testimonials->have_posts()) : $testimonials->the_post();
+                            $name = get_post_meta(get_the_ID(), '_testimonial_name', true);
+                            $position = get_post_meta(get_the_ID(), '_testimonial_position', true);
+                            $avatar = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') : CGR_URI . '/assets/img/avatar.png';
+                    ?>
+                    <div class="cs_slide">
+                        <div class="cs_testimonial cs_style_1">
+                            <blockquote class="cs_testimonial_blockquote cs_heading_color cs_fs_32 cs_bold cs_mb_48"><?php the_content(); ?></blockquote>
+                            <div class="cs_testimonial_meta_wrap">
+                                <img src="<?php echo esc_url($avatar); ?>" alt="<?php echo esc_attr($name); ?>">
+                                <div class="cs_testimonial_meta">
+                                    <h4 class="cs_testimonial_avatar cs_bold cs_fs_16 cs_mb_2"><?php echo esc_html(strtoupper($name ?: get_the_title())); ?></h4>
+                                    <p class="cs_testimonial_avatar_designation mb-0"><?php echo esc_html($position); ?></p>
                                 </div>
                             </div>
-                            <?php
-                                    $first = false;
-                                endwhile;
-                                wp_reset_postdata();
-                            else :
-                            ?>
-                            <div class="cs_slide">
-                                <div class="cs_testimonial cs_style_1 text-center wow fadeInUp">
-                                    <blockquote class="cs_testimonial_blockquote cs_heading_color cs_fs_32 cs_bold cs_mb_48">CreativeGardenDesign's dedication to bringing our <span>vision</span> to life was exceptional. They turned our <span>backyard</span> into a haven of tranquility. Their attention to detail and sustainable practices on their design <span>impressed</span> us.</blockquote>
-                                    <div class="cs_testimonial_meta">
-                                        <h4 class="cs_testimonial_avatar cs_bold cs_fs_16 cs_mb_2">STEVE EVANS</h4>
-                                        <p class="cs_testimonial_avatar_designation mb-0">CEO of Malley Company</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php endif; ?>
                         </div>
                     </div>
-                    <div class="cs_slider_arrows cs_style_2">
-                        <div class="cs_left_arrow cs_heading_color"><?php echo cgr_arrow_left_icon(); ?></div>
-                        <div class="cs_right_arrow cs_heading_color"><?php echo cgr_arrow_right_icon(); ?></div>
+                    <?php
+                            $first = false;
+                        endwhile;
+                        wp_reset_postdata();
+                    else :
+                    ?>
+                    <div class="cs_slide">
+                        <div class="cs_testimonial cs_style_1">
+                            <blockquote class="cs_testimonial_blockquote cs_heading_color cs_fs_32 cs_bold cs_mb_48">LeafLife's dedication to bringing our <span>vision</span> to life was exceptional. They turned our <span>backyard</span> into a haven of tranquility. Their attention to detail and sustainable practices on their design <span>impressed</span> us.</blockquote>
+                            <div class="cs_testimonial_meta_wrap">
+                                <img src="<?php echo esc_url(CGR_URI . '/assets/img/avatar.png'); ?>" alt="">
+                                <div class="cs_testimonial_meta">
+                                    <h4 class="cs_testimonial_avatar cs_bold cs_fs_16 cs_mb_2">MARIA HUGH</h4>
+                                    <p class="cs_testimonial_avatar_designation mb-0">Marketing of Elston Company</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="cs_slide">
+                        <div class="cs_testimonial cs_style_1">
+                            <blockquote class="cs_testimonial_blockquote cs_heading_color cs_fs_32 cs_bold cs_mb_48">LeafLife's dedication to bringing our <span>vision</span> to life was exceptional. They turned our <span>backyard</span> into a haven of tranquility. Their attention to detail and sustainable practices on their design <span>impressed</span> us.</blockquote>
+                            <div class="cs_testimonial_meta_wrap">
+                                <img src="<?php echo esc_url(CGR_URI . '/assets/img/avatar.png'); ?>" alt="">
+                                <div class="cs_testimonial_meta">
+                                    <h4 class="cs_testimonial_avatar cs_bold cs_fs_16 cs_mb_2">STEVE EVANS</h4>
+                                    <p class="cs_testimonial_avatar_designation mb-0">CEO of Malley Company</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="cs_slider_arrows cs_style_2 cs_type_1">
+                <div class="cs_left_arrow cs_heading_color">
+                    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.499953 9.00005C0.499953 8.80823 0.573265 8.61623 0.719703 8.4698L8.2197 0.969797C8.51277 0.676734 8.98733 0.676734 9.2802 0.969797C9.57308 1.26286 9.57327 1.73742 9.2802 2.0303L2.31045 9.00005L9.2802 15.9698C9.57327 16.2629 9.57327 16.7374 9.2802 17.0303C8.98714 17.3232 8.51258 17.3234 8.2197 17.0303L0.719703 9.5303C0.573265 9.38386 0.499953 9.19186 0.499953 9.00005Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="cs_right_arrow cs_heading_color">
+                    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.50005 8.99995C9.50005 9.19177 9.42673 9.38377 9.2803 9.5302L1.7803 17.0302C1.48723 17.3233 1.01267 17.3233 0.719797 17.0302C0.426922 16.7371 0.426734 16.2626 0.719797 15.9697L7.68955 8.99995L0.719797 2.0302C0.426734 1.73714 0.426734 1.26258 0.719797 0.969702C1.01286 0.676826 1.48742 0.67664 1.7803 0.969702L9.2803 8.4697C9.42673 8.61614 9.50005 8.80814 9.50005 8.99995Z" fill="currentColor"/>
+                    </svg>
                 </div>
             </div>
         </div>
